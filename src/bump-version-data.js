@@ -1,8 +1,16 @@
-import {BUMP_LEVEL} from './consts'
+import { BUMP_LEVEL } from './consts'
 
-export function bumpVersion (versionData, bumpLevel) {
+export default function bumpVersionData (versionData, bumpLevel, {
+  logger
+} = { logger: console }) {
+  if (!versionData) {
+    throw new Error('versionData object is required for bumping')
+  }
+
   switch (bumpLevel) {
     case BUMP_LEVEL.MAJOR:
+      logger.info('Bumping major version...')
+
       versionData.major += 1
       versionData.minor = 0
       versionData.patch = 0
@@ -10,24 +18,38 @@ export function bumpVersion (versionData, bumpLevel) {
       versionData.build = undefined
       break
     case BUMP_LEVEL.MINOR:
+      logger.info('Bumping minor version...')
+
       versionData.minor += 1
       versionData.patch = 0
       versionData.pre = undefined
       versionData.build = undefined
       break
     case BUMP_LEVEL.PATCH:
+      logger.info('Bumping patch version...')
+
       versionData.patch += 1
       versionData.pre = undefined
       versionData.build = undefined
       break
     case BUMP_LEVEL.PRE_BUMP:
+      logger.info('Bumping pre version...')
+
+      if (!versionData.pre) {
+        versionData.patch += 1
+      }
+
       versionData.pre = bumpArray(versionData.pre)
       break
     case BUMP_LEVEL.BUILD_BUMP:
+      logger.info('Bumping build version...')
+
       versionData.build = bumpArray(versionData.build)
       break
     case BUMP_LEVEL.LOWEST:
     default:
+      logger.info('Bumping lowest version...')
+
       if (versionData.build) {
         versionData.build = bumpArray(versionData.build)
         break
@@ -58,20 +80,4 @@ function bumpArray (data) {
   }
 
   return data
-}
-
-// See grammar for semver rules
-// https://github.com/semver/semver/blob/master/semver.md#backusnaur-form-grammar-for-valid-semver-versions
-export function versionObjToString (versionData) {
-  let version = `${versionData.major}.${versionData.minor}.${versionData.patch}`
-
-  if (versionData.pre && versionData.pre.length > 0) {
-    version = version + '-' + versionData.pre.join('.')
-  }
-
-  if (versionData.build && versionData.build.length > 0) {
-    version = version + '+' + versionData.build.join('.')
-  }
-
-  return version
 }

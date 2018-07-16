@@ -1,8 +1,8 @@
 import util from 'util'
 
-import BaseVersionStrategy from './BaseVersionStrategy'
+import BaseVersionStrategy from '../BaseVersionStrategy'
 import { getLastCommit } from 'git-last-commit'
-import { bumpVersion } from '../bump-utils'
+import bumpVersionData from '../bump-version-data'
 import { BUMP_LEVEL } from '../consts'
 
 const getLastCommitAsync = util.promisify(getLastCommit)
@@ -20,14 +20,7 @@ const getLastCommitAsync = util.promisify(getLastCommit)
  * See https://github.com/asamuzaK/semverParser#parsesemverversion-strict for more information.
  */
 export default class GitCommitMessageStrategy extends BaseVersionStrategy {
-  getStrategyName () {
-    return 'git-commit-msg'
-  }
-
-  initCliOptions (program) {
-    program
-      .command(`${this.getStrategyName()} <options>`)
-      .description(`Uses the last git commit subject to determine the bump level. Will bump based
+  static description = `Uses the last git commit subject to determine the bump level. Will bump based
     on the following text:
     
       * [major]
@@ -38,7 +31,14 @@ export default class GitCommitMessageStrategy extends BaseVersionStrategy {
       * [pre:<colon-sep-tags>] ([pre:alpha:rc])
       * [build:<colon-sep-tags>] ([build:qa])
     
-    Default is the lowest version possible.`)
+    Default is the lowest version possible.`
+
+  static strategyShortName = 'git-commit-msg'
+
+  static initCliOptions (program) {
+    program
+      .command(`${GitCommitMessageStrategy.strategyShortName} <options>`)
+      .description(GitCommitMessageStrategy.description)
   }
 
   /**
@@ -49,7 +49,9 @@ export default class GitCommitMessageStrategy extends BaseVersionStrategy {
     const lastCommit = await getLastCommitAsync()
     const bumpLevel = this._determineBumpLevel(lastCommit)
     let versionData = this.getCurrentVersion()
-    return bumpVersion(versionData, bumpLevel)
+    return bumpVersionData(versionData, bumpLevel, {
+      logger: this.getLogger()
+    })
   }
 
   _determineBumpLevel (message) {

@@ -61,8 +61,13 @@ export async function writeVersionFile (projectRoot, versionFile, data) {
   }
 }
 
-export async function readVersionFile (projectRoot, versionFile) {
+export async function readVersionFile (projectRoot, versionFile, {
+  logger
+} = { logger: console }) {
   const versionFilePath = join(projectRoot, versionFile)
+
+  logger.info(`Reading version file: ${versionFilePath}`)
+
   let data = await getFileContents(versionFilePath)
 
   try {

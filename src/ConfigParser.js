@@ -24,10 +24,11 @@ export default class ConfigParser {
    * @param {string} [options.projectRoot] The project root where the package.json file
    * is found. Default is process.cwd()
    */
-  constructor (options = {}) {
+  constructor (options = {}, { logger } = { logger: console }) {
     this.options = options
     this.projectRoot = options.projectRoot || process.cwd()
     this.configFile = options.configFile || '.version-bump.js'
+    this.logger = logger
   }
 
   /**
@@ -37,39 +38,41 @@ export default class ConfigParser {
    */
   async parseConfig () {
     const configFile = join(this.projectRoot, this.configFile)
+    let options = {}
+    let defaultOptions = this.options
 
     if (existsSync(configFile)) {
-      let options = {}
+      this.logger.info(`Using config file: ${configFile}`)
+
       try {
         options = require(configFile)
       } catch (e) {
-        // It's ok if we don't find a config file
-        // since it's optional.
-        debug('Config file not found: ', configFile)
+        debug(e)
+        throw new Error(`Problem requiring file: ${configFile}`)
       }
 
-      try {
-        const projectRoot = await getValue(options.projectRoot)
+      const projectRoot = await getValue(options.projectRoot)
 
-        const newOptions = {
-          ...await parseOptions(options, CONFIG_OPTIONS_TO_SKIP),
-          ...this.options,
-          // Speical case: if the config file has projectRoot,
-          // use that value instead, even if it's specified on the
-          // command line
-          projectRoot
-        }
+      const calculatedOptions = await parseOptions(options, CONFIG_OPTIONS_TO_SKIP)
 
-        return newOptions
-      } catch (e) {
-        throw new Error(`Problem parsing config file: ${configFile}`)
+      defaultOptions = {
+        ...calculatedOptions,
+        ...this.options,
+        // Speical case: if the config file has projectRoot,
+        // use that value instead, even if it's specified on the
+        // command line
+        projectRoot
       }
     }
 
-    return {
-      projectRoot: process.cwd(),
-      versionFile: 'package.json',
-      ...this.options
+    if (!defaultOptions.projectRoot) {
+      defaultOptions.projectRoot = process.cwd()
     }
+
+    if (!defaultOptions.versionFile) {
+      defaultOptions.versionFile = 'package.json'
+    }
+
+    return defaultOptions
   }
 }

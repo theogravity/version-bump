@@ -13,8 +13,9 @@ describe('GitCommitMessageStrategy', () => {
     getLastCommit.mockImplementationOnce((cb) => {
       cb(null, '[major]')
     })
-    const s = new GitCommitMessageStrategy('1.2.3', {})
-    await s.init()
+    const s = new GitCommitMessageStrategy()
+
+    await s.init({ currentVersion: '1.2.3' })
 
     const versionData = await s.getNextVersion()
 
@@ -31,8 +32,8 @@ describe('GitCommitMessageStrategy', () => {
     getLastCommit.mockImplementationOnce((cb) => {
       cb(null, '[major]')
     })
-    const s = new GitCommitMessageStrategy('1.2.3-pre.1', {})
-    await s.init()
+    const s = new GitCommitMessageStrategy()
+    await s.init({ currentVersion: '1.2.3-pre.1' })
 
     const versionData = await s.getNextVersion()
 
@@ -49,8 +50,8 @@ describe('GitCommitMessageStrategy', () => {
     getLastCommit.mockImplementationOnce((cb) => {
       cb(null, '[minor]')
     })
-    const s = new GitCommitMessageStrategy('1.2.3', {})
-    await s.init()
+    const s = new GitCommitMessageStrategy()
+    await s.init({ currentVersion: '1.2.3' })
 
     const versionData = await s.getNextVersion()
 
@@ -67,8 +68,8 @@ describe('GitCommitMessageStrategy', () => {
     getLastCommit.mockImplementationOnce((cb) => {
       cb(null, '[patch]')
     })
-    const s = new GitCommitMessageStrategy('1.2.3', {})
-    await s.init()
+    const s = new GitCommitMessageStrategy()
+    await s.init({ currentVersion: '1.2.3' })
 
     const versionData = await s.getNextVersion()
 
@@ -85,8 +86,8 @@ describe('GitCommitMessageStrategy', () => {
     getLastCommit.mockImplementationOnce((cb) => {
       cb(null, '[pre-bump]')
     })
-    const s = new GitCommitMessageStrategy('1.2.3', {})
-    await s.init()
+    const s = new GitCommitMessageStrategy()
+    await s.init({ currentVersion: '1.2.3' })
 
     const versionData = await s.getNextVersion()
 
@@ -94,7 +95,7 @@ describe('GitCommitMessageStrategy', () => {
       'build': undefined,
       'major': 1,
       'minor': 2,
-      'patch': 3,
+      'patch': 4,
       'pre': [1]
     })
   })
@@ -103,8 +104,8 @@ describe('GitCommitMessageStrategy', () => {
     getLastCommit.mockImplementationOnce((cb) => {
       cb(null, '[pre-bump]')
     })
-    const s = new GitCommitMessageStrategy('1.2.3-pre.1', {})
-    await s.init()
+    const s = new GitCommitMessageStrategy()
+    await s.init({ currentVersion: '1.2.3-pre.1' })
 
     const versionData = await s.getNextVersion()
 
@@ -121,8 +122,8 @@ describe('GitCommitMessageStrategy', () => {
     getLastCommit.mockImplementationOnce((cb) => {
       cb(null, '[build-bump]')
     })
-    const s = new GitCommitMessageStrategy('1.2.3', {})
-    await s.init()
+    const s = new GitCommitMessageStrategy()
+    await s.init({ currentVersion: '1.2.3' })
 
     const versionData = await s.getNextVersion()
 
@@ -139,8 +140,8 @@ describe('GitCommitMessageStrategy', () => {
     getLastCommit.mockImplementationOnce((cb) => {
       cb(null, '[build-bump]')
     })
-    const s = new GitCommitMessageStrategy('1.2.3-pre.1', {})
-    await s.init()
+    const s = new GitCommitMessageStrategy()
+    await s.init({ currentVersion: '1.2.3-pre.1' })
 
     const versionData = await s.getNextVersion()
 

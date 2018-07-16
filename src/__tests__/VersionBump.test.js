@@ -1,15 +1,13 @@
 /* eslint-env jest */
 
-import { getLastCommit } from 'git-last-commit'
 import fsMock from 'mock-fs'
 import VersionBump from '../VersionBump'
 import { readVersionFile } from '../utils'
+import CliBumpStrategy from '../version-strategy/CliBumpStrategy'
 
-jest.mock('git-last-commit', function () {
-  return {
-    getLastCommit: jest.fn()
-  }
-})
+// fs-mock doesn't like console.logs
+// https://github.com/tschaub/mock-fs/issues/234
+import logger from '../__mocks__/logger'
 
 const defaultVersionContent = '{"version": "1.2.3"}'
 const versionContentPreBuild = '{"version": "1.2.3-pre.1+qa.1"}'
@@ -24,14 +22,15 @@ describe('VersionBump class', () => {
       'package.json': defaultVersionContent
     })
 
-    getLastCommit.mockImplementationOnce((cb) => {
-      cb(null, '')
-    })
+    const vb = new VersionBump({
+      strategyOptions: {
+        bump: 'patch'
+      }
+    }, { logger: logger })
 
-    const vb = new VersionBump()
-    await vb.init()
+    await vb.init({ Strategy: CliBumpStrategy })
     await vb.bumpVersion()
-    const data = await readVersionFile(process.cwd(), 'package.json')
+    const data = await readVersionFile(process.cwd(), 'package.json', { logger })
 
     expect(data).toEqual({
       version: '1.2.4'
@@ -43,14 +42,15 @@ describe('VersionBump class', () => {
       'package.json': defaultVersionContent
     })
 
-    getLastCommit.mockImplementationOnce((cb) => {
-      cb(null, 'Commit message - [patch]')
-    })
+    const vb = new VersionBump({
+      strategyOptions: {
+        bump: 'patch'
+      }
+    }, { logger: logger })
 
-    const vb = new VersionBump()
-    await vb.init()
+    await vb.init({ Strategy: CliBumpStrategy })
     await vb.bumpVersion()
-    const data = await readVersionFile(process.cwd(), 'package.json')
+    const data = await readVersionFile(process.cwd(), 'package.json', { logger })
 
     expect(data).toEqual({
       version: '1.2.4'
@@ -62,14 +62,15 @@ describe('VersionBump class', () => {
       'package.json': versionContentPreBuild
     })
 
-    getLastCommit.mockImplementationOnce((cb) => {
-      cb(null, '[patch]')
-    })
+    const vb = new VersionBump({
+      strategyOptions: {
+        bump: 'patch'
+      }
+    }, { logger: logger })
 
-    const vb = new VersionBump()
-    await vb.init()
+    await vb.init({ Strategy: CliBumpStrategy })
     await vb.bumpVersion()
-    const data = await readVersionFile(process.cwd(), 'package.json')
+    const data = await readVersionFile(process.cwd(), 'package.json', { logger })
 
     expect(data).toEqual({
       version: '1.2.4'
@@ -81,14 +82,10 @@ describe('VersionBump class', () => {
       'package.json': versionContentPreBuild
     })
 
-    getLastCommit.mockImplementationOnce((cb) => {
-      cb(null, '')
-    })
-
-    const vb = new VersionBump()
-    await vb.init()
+    const vb = new VersionBump({}, { logger: logger })
+    await vb.init({ Strategy: CliBumpStrategy })
     await vb.bumpVersion()
-    const data = await readVersionFile(process.cwd(), 'package.json')
+    const data = await readVersionFile(process.cwd(), 'package.json', { logger })
 
     expect(data).toEqual({
       version: '1.2.3-pre.1+qa.2'
@@ -100,14 +97,15 @@ describe('VersionBump class', () => {
       'package.json': defaultVersionContent
     })
 
-    getLastCommit.mockImplementationOnce((cb) => {
-      cb(null, 'Commit message - [minor]')
-    })
+    const vb = new VersionBump({
+      strategyOptions: {
+        bump: 'minor'
+      }
+    }, { logger: logger })
 
-    const vb = new VersionBump()
-    await vb.init()
+    await vb.init({ Strategy: CliBumpStrategy })
     await vb.bumpVersion()
-    const data = await readVersionFile(process.cwd(), 'package.json')
+    const data = await readVersionFile(process.cwd(), 'package.json', { logger })
 
     expect(data).toEqual({
       version: '1.3.0'
@@ -119,14 +117,15 @@ describe('VersionBump class', () => {
       'package.json': defaultVersionContent
     })
 
-    getLastCommit.mockImplementationOnce((cb) => {
-      cb(null, 'Commit message - [patch]')
-    })
+    const vb = new VersionBump({
+      strategyOptions: {
+        bump: 'patch'
+      }
+    }, { logger: logger })
 
-    const vb = new VersionBump()
-    await vb.init()
+    await vb.init({ Strategy: CliBumpStrategy })
     await vb.bumpVersion()
-    const data = await readVersionFile(process.cwd(), 'package.json')
+    const data = await readVersionFile(process.cwd(), 'package.json', { logger })
 
     expect(data).toEqual({
       version: '1.2.4'
@@ -138,17 +137,38 @@ describe('VersionBump class', () => {
       'package.json': defaultVersionContent
     })
 
-    getLastCommit.mockImplementationOnce((cb) => {
-      cb(null, 'Commit message - [pre-bump]')
-    })
+    const vb = new VersionBump({
+      strategyOptions: {
+        bump: 'pre'
+      }
+    }, { logger: logger })
 
-    const vb = new VersionBump()
-    await vb.init()
+    await vb.init({ Strategy: CliBumpStrategy })
     await vb.bumpVersion()
-    const data = await readVersionFile(process.cwd(), 'package.json')
+    const data = await readVersionFile(process.cwd(), 'package.json', { logger })
 
     expect(data).toEqual({
-      version: '1.2.3-1'
+      version: '1.2.4-1'
+    })
+  })
+
+  it('should bump the pre level version 2', async () => {
+    fsMock({
+      'package.json': versionContentPreBuild
+    })
+
+    const vb = new VersionBump({
+      strategyOptions: {
+        bump: 'pre'
+      }
+    }, { logger: logger })
+
+    await vb.init({ Strategy: CliBumpStrategy })
+    await vb.bumpVersion()
+    const data = await readVersionFile(process.cwd(), 'package.json', { logger })
+
+    expect(data).toEqual({
+      version: '1.2.3-pre.2+qa.1'
     })
   })
 
@@ -157,14 +177,15 @@ describe('VersionBump class', () => {
       'package.json': defaultVersionContent
     })
 
-    getLastCommit.mockImplementationOnce((cb) => {
-      cb(null, 'Commit message - [build-bump]')
-    })
+    const vb = new VersionBump({
+      strategyOptions: {
+        bump: 'build'
+      }
+    }, { logger: logger })
 
-    const vb = new VersionBump()
-    await vb.init()
+    await vb.init({ Strategy: CliBumpStrategy })
     await vb.bumpVersion()
-    const data = await readVersionFile(process.cwd(), 'package.json')
+    const data = await readVersionFile(process.cwd(), 'package.json', { logger })
 
     expect(data).toEqual({
       version: '1.2.3+1'
@@ -173,11 +194,7 @@ describe('VersionBump class', () => {
 
   it('should use the onBeforeRelease hook', async () => {
     fsMock({
-      'package.json': defaultVersionContent
-    })
-
-    getLastCommit.mockImplementationOnce((cb) => {
-      cb(null, 'Commit message - [pre-bump]')
+      'package.json': versionContentPreBuild
     })
 
     const vb = new VersionBump({
@@ -185,14 +202,14 @@ describe('VersionBump class', () => {
         versionData.build = ['test', 1]
         return versionData
       }
-    })
+    }, { logger: logger })
 
-    await vb.init()
+    await vb.init({ Strategy: CliBumpStrategy })
     await vb.bumpVersion()
-    const data = await readVersionFile(process.cwd(), 'package.json')
+    const data = await readVersionFile(process.cwd(), 'package.json', { logger })
 
     expect(data).toEqual({
-      version: '1.2.3-1+test.1'
+      version: '1.2.3-pre.1+test.1'
     })
   })
 })

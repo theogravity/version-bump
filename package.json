@@ -2,20 +2,33 @@
   "name": "@theo.gravity/version-bump",
   "version": "1.0.0",
   "description": "Bumps package.json with customizable options",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "scripts": {
+    "version-bump": "node --require babel-register ./src/bin/version-bump.js",
+    "changelog:help": "changelog-version",
+    "changelog:verify": "changelog-version verify",
+    "changelog:prepare": "changelog-version prepare",
+    "changelog:release": "changelog-version release",
+    "test": "jest",
+    "build": "babel src -d lib",
+    "version-bump:debug": "node --inspect-brk --require babel-register ./src/bin/version-bump.js"
+  },
   "dependencies": {
-    "commander": "^2.15.1",
+    "commander": "^2.16.0",
     "debug": "^3.1.0",
     "git-last-commit": "^0.3.0",
+    "load-deps": "^1.0.5",
     "semver-parser": "^2.0.1"
   },
   "devDependencies": {
     "@theo.gravity/changelog-version": "^2.1.1",
     "babel-cli": "^6.26.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
     "husky": "^0.14.3",
+    "jest": "^23.4.1",
     "jest-cli": "^23.3.0",
     "lint-staged": "^7.2.0",
     "mock-fs": "^4.5.0",
@@ -23,13 +36,6 @@
     "prettier-standard": "^8.0.1",
     "standard": "^11.0.1",
     "toc-md": "^0.2.0"
-  },
-  "scripts": {
-    "changelog:help": "changelog-version",
-    "changelog:verify": "changelog-version verify",
-    "changelog:prepare": "changelog-version prepare",
-    "changelog:release": "changelog-version release",
-    "test": "jest"
   },
   "repository": {
     "type": "git",
