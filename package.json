@@ -1,6 +1,6 @@
 {
   "name": "@theo.gravity/version-bump",
-  "version": "1.0.0-1",
+  "version": "1.0.0",
   "description": "Bumps package.json with customizable options",
   "main": "lib/index.js",
   "scripts": {

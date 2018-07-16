@@ -83,10 +83,50 @@ describe('CliBumpStrategy', () => {
     })
   })
 
-  it('should bump the pre version', async () => {
+  it('should bump the pre-major version', async () => {
     const s = new CliBumpStrategy({
       strategyOptions: {
-        bump: 'pre'
+        bump: 'pre-major'
+      }
+    })
+
+    await s.init({ currentVersion: '1.2.3' })
+
+    const versionData = await s.getNextVersion()
+
+    expect(versionData).toEqual({
+      'build': undefined,
+      'major': 2,
+      'minor': 0,
+      'patch': 0,
+      'pre': [0]
+    })
+  })
+
+  it('should bump the pre-minor version', async () => {
+    const s = new CliBumpStrategy({
+      strategyOptions: {
+        bump: 'pre-minor'
+      }
+    })
+
+    await s.init({ currentVersion: '1.2.3' })
+
+    const versionData = await s.getNextVersion()
+
+    expect(versionData).toEqual({
+      'build': undefined,
+      'major': 1,
+      'minor': 3,
+      'patch': 0,
+      'pre': [0]
+    })
+  })
+
+  it('should bump the pre-patch version', async () => {
+    const s = new CliBumpStrategy({
+      strategyOptions: {
+        bump: 'pre-patch'
       }
     })
 
@@ -99,14 +139,34 @@ describe('CliBumpStrategy', () => {
       'major': 1,
       'minor': 2,
       'patch': 4,
-      'pre': [1]
+      'pre': [0]
+    })
+  })
+
+  it('should bump the pre version', async () => {
+    const s = new CliBumpStrategy({
+      strategyOptions: {
+        bump: 'pre-release'
+      }
+    })
+
+    await s.init({ currentVersion: '1.2.3' })
+
+    const versionData = await s.getNextVersion()
+
+    expect(versionData).toEqual({
+      'build': undefined,
+      'major': 1,
+      'minor': 2,
+      'patch': 3,
+      'pre': [0]
     })
   })
 
   it('should bump the pre version 2', async () => {
     const s = new CliBumpStrategy({
       strategyOptions: {
-        bump: 'pre'
+        bump: 'pre-release'
       }
     })
 
@@ -126,7 +186,7 @@ describe('CliBumpStrategy', () => {
   it('should bump the pre version 3', async () => {
     const s = new CliBumpStrategy({
       strategyOptions: {
-        bump: 'pre:alpha'
+        bump: 'pre-release:alpha'
       }
     })
 
@@ -146,7 +206,7 @@ describe('CliBumpStrategy', () => {
   it('should bump the build version', async () => {
     const s = new CliBumpStrategy({
       strategyOptions: {
-        bump: 'build'
+        bump: 'build-release'
       }
     })
 
@@ -155,7 +215,7 @@ describe('CliBumpStrategy', () => {
     const versionData = await s.getNextVersion()
 
     expect(versionData).toEqual({
-      'build': [1],
+      'build': [0],
       'major': 1,
       'minor': 2,
       'patch': 3,
@@ -166,7 +226,7 @@ describe('CliBumpStrategy', () => {
   it('should bump the build version 2', async () => {
     const s = new CliBumpStrategy({
       strategyOptions: {
-        bump: 'build'
+        bump: 'build-release'
       }
     })
 
@@ -175,7 +235,7 @@ describe('CliBumpStrategy', () => {
     const versionData = await s.getNextVersion()
 
     expect(versionData).toEqual({
-      'build': [1],
+      'build': [0],
       'major': 1,
       'minor': 2,
       'patch': 3,
@@ -186,7 +246,7 @@ describe('CliBumpStrategy', () => {
   it('should bump the build version 3', async () => {
     const s = new CliBumpStrategy({
       strategyOptions: {
-        bump: 'build:qa'
+        bump: 'build-release:qa'
       }
     })
 
@@ -206,7 +266,7 @@ describe('CliBumpStrategy', () => {
   it('should bump the build version 4', async () => {
     const s = new CliBumpStrategy({
       strategyOptions: {
-        bump: 'build:qa'
+        bump: 'build-release:qa'
       }
     })
 

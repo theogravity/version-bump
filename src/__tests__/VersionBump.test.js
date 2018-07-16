@@ -139,7 +139,7 @@ describe('VersionBump class', () => {
 
     const vb = new VersionBump({
       strategyOptions: {
-        bump: 'pre'
+        bump: 'pre-release'
       }
     }, { logger: logger })
 
@@ -148,7 +148,7 @@ describe('VersionBump class', () => {
     const data = await readVersionFile(process.cwd(), 'package.json', { logger })
 
     expect(data).toEqual({
-      version: '1.2.4-1'
+      version: '1.2.3-0'
     })
   })
 
@@ -159,7 +159,7 @@ describe('VersionBump class', () => {
 
     const vb = new VersionBump({
       strategyOptions: {
-        bump: 'pre'
+        bump: 'pre-release'
       }
     }, { logger: logger })
 
@@ -179,7 +179,7 @@ describe('VersionBump class', () => {
 
     const vb = new VersionBump({
       strategyOptions: {
-        bump: 'build'
+        bump: 'build-release'
       }
     }, { logger: logger })
 
@@ -188,7 +188,7 @@ describe('VersionBump class', () => {
     const data = await readVersionFile(process.cwd(), 'package.json', { logger })
 
     expect(data).toEqual({
-      version: '1.2.3+1'
+      version: '1.2.3+0'
     })
   })
 

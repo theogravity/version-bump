@@ -71,11 +71,23 @@ export default class GitCommitMessageStrategy extends BaseVersionStrategy {
       return BUMP_LEVEL.PATCH
     }
 
-    if (message.includes('[pre-bump]')) {
+    if (message.includes('[pre-major]')) {
+      return BUMP_LEVEL.PRE_MAJOR
+    }
+
+    if (message.includes('[pre-minor]')) {
+      return BUMP_LEVEL.PRE_MINOR
+    }
+
+    if (message.includes('[pre-patch]')) {
+      return BUMP_LEVEL.PRE_PATCH
+    }
+
+    if (message.includes('[pre-release]')) {
       return BUMP_LEVEL.PRE_RELEASE
     }
 
-    if (message.includes('[build-bump]')) {
+    if (message.includes('[build-release]')) {
       return BUMP_LEVEL.BUILD_RELEASE
     }
 

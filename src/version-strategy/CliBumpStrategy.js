@@ -48,7 +48,10 @@ export default class CliBumpStrategy extends BaseVersionStrategy {
     let versionData = this.getCurrentVersion()
 
     // check if the pre/build is using any custom tag
-    if (typeof this.bump === 'string' && (this.bump.includes('pre:') || this.bump.includes('build:'))) {
+    if (typeof this.bump === 'string' &&
+      (this.bump.includes('pre') || this.bump.includes('build')) &&
+      this.bump.includes(':')
+    ) {
       // extract the tag
       let tags = this.bump.split(':')
 
@@ -59,6 +62,9 @@ export default class CliBumpStrategy extends BaseVersionStrategy {
       let compare = []
 
       switch (bumpLevel) {
+        case BUMP_LEVEL.PRE_MAJOR:
+        case BUMP_LEVEL.PRE_MINOR:
+        case BUMP_LEVEL.PRE_PATCH:
         case BUMP_LEVEL.PRE_RELEASE:
           compare = versionData.pre || []
           break
@@ -106,11 +112,23 @@ export default class CliBumpStrategy extends BaseVersionStrategy {
       return BUMP_LEVEL.PATCH
     }
 
-    if (bumpType.includes('pre')) {
+    if (bumpType === 'pre-major') {
+      return BUMP_LEVEL.PRE_MAJOR
+    }
+
+    if (bumpType === 'pre-minor') {
+      return BUMP_LEVEL.PRE_MINOR
+    }
+
+    if (bumpType === 'pre-patch') {
+      return BUMP_LEVEL.PRE_PATCH
+    }
+
+    if (bumpType.includes('pre-release')) {
       return BUMP_LEVEL.PRE_RELEASE
     }
 
-    if (bumpType.includes('build')) {
+    if (bumpType.includes('build-release')) {
       return BUMP_LEVEL.BUILD_RELEASE
     }
 

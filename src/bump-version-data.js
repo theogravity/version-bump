@@ -33,11 +33,35 @@ export default function bumpVersionData (versionData, bumpLevel, {
       versionData.build = undefined
       break
     case BUMP_LEVEL.PRE_MAJOR:
-      logger.info('Bumping pre major version...')
+      logger.info('Bumping pre-major version...')
+
+      versionData.major += 1
+      versionData.minor = 0
+      versionData.patch = 0
+      versionData.pre = undefined
+      versionData.build = undefined
 
       versionData.pre = bumpArray(versionData.pre)
       break
+    case BUMP_LEVEL.PRE_MINOR:
+      logger.info('Bumping pre-minor version...')
 
+      versionData.minor += 1
+      versionData.patch = 0
+      versionData.pre = undefined
+      versionData.build = undefined
+
+      versionData.pre = bumpArray(versionData.pre)
+      break
+    case BUMP_LEVEL.PRE_PATCH:
+      logger.info('Bumping pre-patch version...')
+
+      versionData.patch += 1
+      versionData.pre = undefined
+      versionData.build = undefined
+
+      versionData.pre = bumpArray(versionData.pre)
+      break
     case BUMP_LEVEL.PRE_RELEASE:
       logger.info('Bumping pre version...')
 
@@ -70,7 +94,7 @@ export default function bumpVersionData (versionData, bumpLevel, {
 
 function bumpArray (data) {
   if (!Array.isArray(data)) {
-    return [1]
+    return [0]
   }
 
   // find the first integer value in the array, starting backwards and increment it
