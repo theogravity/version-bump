@@ -63,12 +63,12 @@ export default function bumpVersionData (versionData, bumpLevel, {
       versionData.pre = bumpArray(versionData.pre)
       break
     case BUMP_LEVEL.PRE_RELEASE:
-      logger.info('Bumping pre version...')
+      logger.info('Bumping pre-release version...')
 
       versionData.pre = bumpArray(versionData.pre)
       break
     case BUMP_LEVEL.BUILD_RELEASE:
-      logger.info('Bumping build version...')
+      logger.info('Bumping build-release version...')
 
       versionData.build = bumpArray(versionData.build)
       break

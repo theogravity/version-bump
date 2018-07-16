@@ -8,10 +8,13 @@ import bumpVersionData from '../bump-version-data'
  * --bump patch
  * --bump minor
  * --bump major
- * --bump pre
- * --bump pre:<colon-separated-tags> eg (pre:alpha)
- * --bump build
- * --bump build:<colon-separated-tags> eg (build:qa)
+ * --bump pre-major
+ * --bump pre-minor
+ * --bump pre-patch
+ * --bump pre-release
+ * --bump pre-*:<colon-separated-tags> eg (pre-release:alpha)
+ * --bump build-release
+ * --bump build-release:<colon-separated-tags> eg (build-release:qa)
  */
 export default class CliBumpStrategy extends BaseVersionStrategy {
   static description = 'Performs a version bump based on command line options.'
@@ -19,7 +22,7 @@ export default class CliBumpStrategy extends BaseVersionStrategy {
 
   async init ({ currentVersion }) {
     await BaseVersionStrategy.prototype.init.call(this, { currentVersion })
-    this.bump = this.strategyOptions.bump
+    this.bump = this.getStrategyOptions().bump
   }
 
   static initCliOptions (program) {
@@ -31,18 +34,17 @@ export default class CliBumpStrategy extends BaseVersionStrategy {
                         * major
                         * minor
                         * patch
-                        * pre
-                        * build
-                        * pre:<colon-sep-tags> (pre:alpha:rc)
-                        * build:<colon-sep-tags> (build:qa)
+                        * pre-major
+                        * pre-minor
+                        * pre-patch
+                        * pre-release
+                        * pre-*:<colon-sep-tags> (pre-release:alpha:rc)
+                        * build-release
+                        * build-release:<colon-sep-tags> (build-release:qa)
       
                     Default is the lowest version possible.`)
   }
 
-  /**
-   * Returns the next release version to update the versionFile with.
-   * @returns {Promise<Object>} semver parsed object
-   */
   async getNextVersion () {
     const bumpLevel = this._determineBumpLevel(this.bump)
     let versionData = this.getCurrentVersion()
@@ -132,6 +134,10 @@ export default class CliBumpStrategy extends BaseVersionStrategy {
       return BUMP_LEVEL.BUILD_RELEASE
     }
 
-    return BUMP_LEVEL.LOWEST
+    if (!bumpType) {
+      return BUMP_LEVEL.LOWEST
+    }
+
+    throw new Error('Unsupported bump option: ' + bumpType)
   }
 }

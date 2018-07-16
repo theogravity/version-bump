@@ -12,8 +12,8 @@ const getLastCommitAsync = util.promisify(getLastCommit)
  * - [major]
  * - [minor]
  * - [patch]
- * - [pre-bump] Bumps the pre version for the first found integer version
- * - [build-bump] Bumps the build version for the first found integer version
+ * - [pre-release] Bumps the pre version for the first found integer version
+ * - [build-release] Bumps the build version for the first found integer version
  *
  * If there are no tags defined, then the lowest level is assumed.
  *
@@ -26,10 +26,11 @@ export default class GitCommitMessageStrategy extends BaseVersionStrategy {
       * [major]
       * [minor]
       * [patch]
-      * [pre]
-      * [build]
-      * [pre:<colon-sep-tags>] ([pre:alpha:rc])
-      * [build:<colon-sep-tags>] ([build:qa])
+      * [pre-major]
+      * [pre-minor]
+      * [pre-patch]
+      * [pre-release]
+      * [build-release]
     
     Default is the lowest version possible.`
 

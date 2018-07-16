@@ -1,7 +1,7 @@
 {
   "name": "@theo.gravity/version-bump",
   "version": "1.0.0",
-  "description": "Bumps package.json with customizable options",
+  "description": "Version bump package.json (or a version file) via various plugins (eg cli, git, etc).",
   "main": "lib/index.js",
   "scripts": {
     "version-bump": "node --require babel-register ./src/bin/version-bump.js",
@@ -39,7 +39,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/theogravity/version-pump.git"
+    "url": "git+https://github.com/theogravity/version-bump.git"
   },
   "keywords": [
     "version",
@@ -53,7 +53,15 @@
     "commit",
     "git",
     "release",
-    "increment"
+    "increment",
+    "automation",
+    "circle-ci",
+    "travis-ci",
+    "automatic",
+    "package",
+    "package.json",
+    "file",
+    "version-bump-plugin"
   ],
   "lint-staged": {
     "linters": {
@@ -71,7 +79,7 @@
   "author": "Theo Gravity <theo@suteki.nu>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/theogravity/version-pump/issues"
+    "url": "https://github.com/theogravity/version-bump/issues"
   },
-  "homepage": "https://github.com/theogravity/version-pump#readme"
+  "homepage": "https://github.com/theogravity/version-bump#readme"
 }
