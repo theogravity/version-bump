@@ -59,10 +59,10 @@ export default class CliBumpStrategy extends BaseVersionStrategy {
       let compare = []
 
       switch (bumpLevel) {
-        case BUMP_LEVEL.PRE_BUMP:
+        case BUMP_LEVEL.PRE_RELEASE:
           compare = versionData.pre || []
           break
-        case BUMP_LEVEL.BUILD_BUMP:
+        case BUMP_LEVEL.BUILD_RELEASE:
           compare = versionData.build || []
           break
       }
@@ -72,10 +72,10 @@ export default class CliBumpStrategy extends BaseVersionStrategy {
         tags.push(0)
 
         switch (bumpLevel) {
-          case BUMP_LEVEL.PRE_BUMP:
+          case BUMP_LEVEL.PRE_RELEASE:
             versionData.pre = tags
             break
-          case BUMP_LEVEL.BUILD_BUMP:
+          case BUMP_LEVEL.BUILD_RELEASE:
             versionData.build = tags
             break
         }
@@ -107,11 +107,11 @@ export default class CliBumpStrategy extends BaseVersionStrategy {
     }
 
     if (bumpType.includes('pre')) {
-      return BUMP_LEVEL.PRE_BUMP
+      return BUMP_LEVEL.PRE_RELEASE
     }
 
     if (bumpType.includes('build')) {
-      return BUMP_LEVEL.BUILD_BUMP
+      return BUMP_LEVEL.BUILD_RELEASE
     }
 
     return BUMP_LEVEL.LOWEST

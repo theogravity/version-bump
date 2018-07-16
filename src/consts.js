@@ -2,12 +2,10 @@ export const BUMP_LEVEL = {
   MAJOR: 'major',
   MINOR: 'minor',
   PATCH: 'patch',
-  PRE_BUMP: 'pre-bump',
-  BUILD_BUMP: 'build-bump',
+  PRE_MAJOR: 'pre-major',
+  PRE_MINOR: 'pre-minor',
+  PRE_PATCH: 'pre-patch',
+  PRE_RELEASE: 'pre-release',
+  BUILD_RELEASE: 'build-release',
   LOWEST: 'lowest'
-}
-
-export const VERSION_STRATEGIES = {
-  GIT_COMMIT_MSG: 'git-commit-msg',
-  CLI: 'cli-bump'
 }
