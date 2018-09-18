@@ -5,9 +5,7 @@ import CliBumpStrategy from '../CliBumpStrategy'
 describe('CliBumpStrategy', () => {
   it('should bump the major version', async () => {
     const s = new CliBumpStrategy({
-      strategyOptions: {
-        bump: 'major'
-      }
+      bump: 'major'
     })
 
     await s.init({ currentVersion: '1.2.3' })
@@ -25,9 +23,7 @@ describe('CliBumpStrategy', () => {
 
   it('should bump the major version 2', async () => {
     const s = new CliBumpStrategy({
-      strategyOptions: {
-        bump: 'major'
-      }
+      bump: 'major'
     })
 
     await s.init({ currentVersion: '1.2.3-pre.1' })
@@ -45,9 +41,7 @@ describe('CliBumpStrategy', () => {
 
   it('should bump the minor version', async () => {
     const s = new CliBumpStrategy({
-      strategyOptions: {
-        bump: 'minor'
-      }
+      bump: 'minor'
     })
 
     await s.init({ currentVersion: '1.2.3' })
@@ -65,9 +59,7 @@ describe('CliBumpStrategy', () => {
 
   it('should bump the patch version', async () => {
     const s = new CliBumpStrategy({
-      strategyOptions: {
-        bump: 'patch'
-      }
+      bump: 'patch'
     })
 
     await s.init({ currentVersion: '1.2.3' })
@@ -85,9 +77,7 @@ describe('CliBumpStrategy', () => {
 
   it('should bump the pre-major version', async () => {
     const s = new CliBumpStrategy({
-      strategyOptions: {
-        bump: 'pre-major'
-      }
+      bump: 'pre-major'
     })
 
     await s.init({ currentVersion: '1.2.3' })
@@ -105,9 +95,7 @@ describe('CliBumpStrategy', () => {
 
   it('should bump the pre-minor version', async () => {
     const s = new CliBumpStrategy({
-      strategyOptions: {
-        bump: 'pre-minor'
-      }
+      bump: 'pre-minor'
     })
 
     await s.init({ currentVersion: '1.2.3' })
@@ -125,9 +113,7 @@ describe('CliBumpStrategy', () => {
 
   it('should bump the pre-patch version', async () => {
     const s = new CliBumpStrategy({
-      strategyOptions: {
-        bump: 'pre-patch'
-      }
+      bump: 'pre-patch'
     })
 
     await s.init({ currentVersion: '1.2.3' })
@@ -145,9 +131,7 @@ describe('CliBumpStrategy', () => {
 
   it('should bump the pre version', async () => {
     const s = new CliBumpStrategy({
-      strategyOptions: {
-        bump: 'pre-release'
-      }
+      bump: 'pre-release'
     })
 
     await s.init({ currentVersion: '1.2.3' })
@@ -165,9 +149,7 @@ describe('CliBumpStrategy', () => {
 
   it('should bump the pre version 2', async () => {
     const s = new CliBumpStrategy({
-      strategyOptions: {
-        bump: 'pre-release'
-      }
+      bump: 'pre-release'
     })
 
     await s.init({ currentVersion: '1.2.3-pre.1' })
@@ -185,9 +167,7 @@ describe('CliBumpStrategy', () => {
 
   it('should bump the pre version 3', async () => {
     const s = new CliBumpStrategy({
-      strategyOptions: {
-        bump: 'pre-release:alpha'
-      }
+      bump: 'pre-release:alpha'
     })
 
     await s.init({ currentVersion: '1.2.3-alpha.1' })
@@ -205,9 +185,7 @@ describe('CliBumpStrategy', () => {
 
   it('should bump the build version', async () => {
     const s = new CliBumpStrategy({
-      strategyOptions: {
-        bump: 'build-release'
-      }
+      bump: 'build-release'
     })
 
     await s.init({ currentVersion: '1.2.3' })
@@ -225,9 +203,7 @@ describe('CliBumpStrategy', () => {
 
   it('should bump the build version 2', async () => {
     const s = new CliBumpStrategy({
-      strategyOptions: {
-        bump: 'build-release'
-      }
+      bump: 'build-release'
     })
 
     await s.init({ currentVersion: '1.2.3-pre.1' })
@@ -245,9 +221,7 @@ describe('CliBumpStrategy', () => {
 
   it('should bump the build version 3', async () => {
     const s = new CliBumpStrategy({
-      strategyOptions: {
-        bump: 'build-release:qa'
-      }
+      bump: 'build-release:qa'
     })
 
     await s.init({ currentVersion: '1.2.3-pre.1' })
@@ -265,9 +239,7 @@ describe('CliBumpStrategy', () => {
 
   it('should bump the build version 4', async () => {
     const s = new CliBumpStrategy({
-      strategyOptions: {
-        bump: 'build-release:qa'
-      }
+      bump: 'build-release:qa'
     })
 
     await s.init({ currentVersion: '1.2.3+qa.1' })

@@ -23,12 +23,10 @@ describe('VersionBump class', () => {
     })
 
     const vb = new VersionBump({
-      strategyOptions: {
-        bump: 'patch'
-      }
+      bump: 'patch'
     }, { logger: logger })
 
-    await vb.init({ Strategy: CliBumpStrategy })
+    await vb.initStrategy(CliBumpStrategy)
     await vb.bumpVersion()
     const data = await readVersionFile(process.cwd(), 'package.json', { logger })
 
@@ -43,12 +41,10 @@ describe('VersionBump class', () => {
     })
 
     const vb = new VersionBump({
-      strategyOptions: {
-        bump: 'patch'
-      }
+      bump: 'patch'
     }, { logger: logger })
 
-    await vb.init({ Strategy: CliBumpStrategy })
+    await vb.initStrategy(CliBumpStrategy)
     await vb.bumpVersion()
     const data = await readVersionFile(process.cwd(), 'package.json', { logger })
 
@@ -63,12 +59,10 @@ describe('VersionBump class', () => {
     })
 
     const vb = new VersionBump({
-      strategyOptions: {
-        bump: 'patch'
-      }
+      bump: 'patch'
     }, { logger: logger })
 
-    await vb.init({ Strategy: CliBumpStrategy })
+    await vb.initStrategy(CliBumpStrategy)
     await vb.bumpVersion()
     const data = await readVersionFile(process.cwd(), 'package.json', { logger })
 
@@ -83,7 +77,7 @@ describe('VersionBump class', () => {
     })
 
     const vb = new VersionBump({}, { logger: logger })
-    await vb.init({ Strategy: CliBumpStrategy })
+    await vb.initStrategy(CliBumpStrategy)
     await vb.bumpVersion()
     const data = await readVersionFile(process.cwd(), 'package.json', { logger })
 
@@ -98,12 +92,10 @@ describe('VersionBump class', () => {
     })
 
     const vb = new VersionBump({
-      strategyOptions: {
-        bump: 'minor'
-      }
+      bump: 'minor'
     }, { logger: logger })
 
-    await vb.init({ Strategy: CliBumpStrategy })
+    await vb.initStrategy(CliBumpStrategy)
     await vb.bumpVersion()
     const data = await readVersionFile(process.cwd(), 'package.json', { logger })
 
@@ -118,12 +110,10 @@ describe('VersionBump class', () => {
     })
 
     const vb = new VersionBump({
-      strategyOptions: {
-        bump: 'patch'
-      }
+      bump: 'patch'
     }, { logger: logger })
 
-    await vb.init({ Strategy: CliBumpStrategy })
+    await vb.initStrategy(CliBumpStrategy)
     await vb.bumpVersion()
     const data = await readVersionFile(process.cwd(), 'package.json', { logger })
 
@@ -138,12 +128,10 @@ describe('VersionBump class', () => {
     })
 
     const vb = new VersionBump({
-      strategyOptions: {
-        bump: 'pre-release'
-      }
+      bump: 'pre-release'
     }, { logger: logger })
 
-    await vb.init({ Strategy: CliBumpStrategy })
+    await vb.initStrategy(CliBumpStrategy)
     await vb.bumpVersion()
     const data = await readVersionFile(process.cwd(), 'package.json', { logger })
 
@@ -158,12 +146,10 @@ describe('VersionBump class', () => {
     })
 
     const vb = new VersionBump({
-      strategyOptions: {
-        bump: 'pre-release'
-      }
+      bump: 'pre-release'
     }, { logger: logger })
 
-    await vb.init({ Strategy: CliBumpStrategy })
+    await vb.initStrategy(CliBumpStrategy)
     await vb.bumpVersion()
     const data = await readVersionFile(process.cwd(), 'package.json', { logger })
 
@@ -178,12 +164,10 @@ describe('VersionBump class', () => {
     })
 
     const vb = new VersionBump({
-      strategyOptions: {
-        bump: 'build-release'
-      }
+      bump: 'build-release'
     }, { logger: logger })
 
-    await vb.init({ Strategy: CliBumpStrategy })
+    await vb.initStrategy(CliBumpStrategy)
     await vb.bumpVersion()
     const data = await readVersionFile(process.cwd(), 'package.json', { logger })
 
@@ -204,7 +188,7 @@ describe('VersionBump class', () => {
       }
     }, { logger: logger })
 
-    await vb.init({ Strategy: CliBumpStrategy })
+    await vb.initStrategy(CliBumpStrategy)
     await vb.bumpVersion()
     const data = await readVersionFile(process.cwd(), 'package.json', { logger })
 

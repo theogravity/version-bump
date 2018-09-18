@@ -17,19 +17,21 @@ import bumpVersionData from '../bump-version-data'
  * --bump build-release:<colon-separated-tags> eg (build-release:qa)
  */
 export default class CliBumpStrategy extends BaseVersionStrategy {
-  static description = 'Performs a version bump based on command line options.'
   static strategyShortName = 'cli'
 
   async init ({ currentVersion }) {
     await BaseVersionStrategy.prototype.init.call(this, { currentVersion })
-    this.bump = this.getStrategyOptions().bump
+    this.bump = this.getOptions().bump
   }
 
-  static initCliOptions (program) {
-    return program
-      .command(`${CliBumpStrategy.strategyShortName}`)
-      .description(CliBumpStrategy.description)
-      .option('--bump <bumpType>', `Bump the version based on <bumpType>. 
+  static getCommandConfig () {
+    return {
+      command: `${CliBumpStrategy.strategyShortName} [bump]`,
+      describe: 'Performs a version bump based on the --bump flag',
+      builder: (yargs) => {
+        yargs.positional('bump', {
+          describe: `Version type to bump.
+
                     Values can be:
                         * major
                         * minor
@@ -42,7 +44,10 @@ export default class CliBumpStrategy extends BaseVersionStrategy {
                         * build-release
                         * build-release:<colon-sep-tags> (build-release:qa)
       
-                    Default is the lowest version possible.`)
+                    Default is the lowest version possible.`
+        })
+      }
+    }
   }
 
   async getNextVersion () {

@@ -1,5 +1,3 @@
-TODO: Figure out how the strategy will be loaded from config file
-
 # version-bump
 
 Version bump package.json (or a file with a `version` property) via various version bump plugins/strategies.
@@ -152,11 +150,7 @@ module.exports = {
   // Name of the strategy as found in the strategy list in the CLI
   strategy: 'cli',
   // Options specific to the strategy you are using
-  strategyOptions: async () => {
-    return {
-      bump: 'minor'
-    }
-  }
+  bump: 'minor'
 }
 ```
 

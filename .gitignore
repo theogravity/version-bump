@@ -65,3 +65,4 @@ typings/
 #built libs
 lib/
 
+test-report.xml

@@ -1,82 +1,74 @@
 #!/usr/bin/env node
 
-import program from 'commander'
+import yargs from 'yargs'
+
 import StrategyLoader from '../StrategyLoader'
 import VersionBump from '../VersionBump'
 
 const debug = require('debug')('version-bump-cli')
-
 const loader = new StrategyLoader()
-
 const packageData = require('../../package.json')
 
-// Modification of https://github.com/tj/commander.js/blob/master/index.js
-program.commandHelp = function () {
-  if (!this.commands.length) return ''
+function execCli () {
+  // eslint-disable-next-line no-unused-expressions
+  let cli = yargs
+    .version(packageData.version)
+    .usage('version-bump')
+    .wrap(120)
+    .options({
+      'projectRoot': {
+        describe: 'The project root where the version file is found. Default is process.cwd()',
+        default: process.cwd()
+      },
+      'configFile': {
+        describe: 'Name of the optional config file, relative to projectRoot.',
+        default: '.version-bump.js'
+      },
+      'versionFile': {
+        describe: 'The relative path to the JSON version file from projectRoot ' +
+          'that contains the "version" property.',
+        default: 'package.json'
+      }
+    })
+    .demandCommand()
+    .help()
 
-  const commands = this.prepareCommands()
-  const width = this.padWidth()
+  initStrategyCli(cli)
 
-  return [
-    '  Strategies: (use version-bump <strategy> --help for more info)',
-    '',
-    commands.map(function (cmd) {
-      const desc = cmd[1] ? '  ' + cmd[1] : ''
-      return (desc ? pad(cmd[0], width) : cmd[0]) + desc
-    }).join('\n').replace(/^/gm, '    '),
-    ''
-  ].join('\n')
+  // eslint-disable-next-line no-unused-expressions
+  cli.argv
 }
 
-function pad (str, width) {
-  const len = Math.max(0, width - str.length)
-  return str + Array(len + 1).join(' ')
-}
-// end modifications
-
-function initStrategyCli () {
+function initStrategyCli (yargs) {
   Object.keys(loader.getStrategies()).forEach((stratName) => {
-    const p = loader.getStrategyConstructor(stratName).initCliOptions(program)
+    const cmd = loader.getStrategyConstructor(stratName).getCommandConfig(yargs)
 
-    if (p) {
-      p.action(async (options) => {
-        try {
-          console.info('Using version bump strategy:', stratName)
+    if (cmd) {
+      if (!cmd.builder) {
+        cmd.builder = () => {}
+      }
 
-          const Strategy = loader.getStrategyConstructor(stratName)
+      cmd.handler = execStrategy(stratName)
 
-          const vb = new VersionBump({
-            ...options.parent.opts(),
-            strategyOptions: options.opts()
-          })
-          await vb.init({ Strategy })
-          await vb.bumpVersion()
-        } catch (e) {
-          debug(e)
-          console.error(e.message)
-        }
-      })
-    } else {
-      throw new Error('CLI not defined for: ' + stratName)
+      yargs.command(cmd)
     }
   })
 }
 
-program
-  .version(packageData.version)
-  .usage('[options] <strategy>')
-  .option('--configFile [fileName]', `Name of the optional config file, relative to projectRoot.
-                                    Default is ".version-pump.js".`)
-  .option('--projectRoot [path]', `The project root where the version file is found.
-                                    Default is process.cwd().`)
-  .option('--versionFile [fileName]', `The relative path to the JSON version file from projectRoot
-                                    that contains the "version" property.
-                                    Default is "package.json".`)
+function execStrategy (stratName) {
+  return async (params) => {
+    try {
+      console.info('Using version bump strategy:', stratName)
 
-initStrategyCli()
-
-if (!process.argv[2]) {
-  program.help()
+      const Strategy = loader.getStrategyConstructor(stratName)
+      const vb = new VersionBump(params)
+      await vb.initStrategy(Strategy)
+      await vb.bumpVersion()
+    } catch (e) {
+      debug(e)
+      console.error(e.message)
+    }
+  }
 }
 
-program.parse(process.argv)
+execCli()

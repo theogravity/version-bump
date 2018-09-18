@@ -18,7 +18,7 @@ export default class VersionBump {
    * Call this first before calling one of the public facing methods.
    * @returns {Promise<void>}
    */
-  async init ({ Strategy } = {}) {
+  async initStrategy (Strategy) {
     if (!Strategy) {
       throw new Error('VersionBump#init() requires the Strategy parameter')
     }

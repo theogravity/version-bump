@@ -20,26 +20,24 @@ const getLastCommitAsync = util.promisify(getLastCommit)
  * See https://github.com/asamuzaK/semverParser#parsesemverversion-strict for more information.
  */
 export default class GitCommitMessageStrategy extends BaseVersionStrategy {
-  static description = `Uses the last git commit subject to determine the bump level. Will bump based
-    on the following text:
-    
-      * [major]
-      * [minor]
-      * [patch]
-      * [pre-major]
-      * [pre-minor]
-      * [pre-patch]
-      * [pre-release]
-      * [build-release]
-    
-    Default is the lowest version possible.`
-
   static strategyShortName = 'git-commit-msg'
 
-  static initCliOptions (program) {
-    program
-      .command(`${GitCommitMessageStrategy.strategyShortName} <options>`)
-      .description(GitCommitMessageStrategy.description)
+  static getCommandConfig () {
+    return {
+      command: GitCommitMessageStrategy.strategyShortName,
+      describe: `Uses the last git commit subject to determine the bump level. Will bump based on the following text:
+        
+          * [major]
+          * [minor]
+          * [patch]
+          * [pre-major]
+          * [pre-minor]
+          * [pre-patch]
+          * [pre-release]
+          * [build-release]
+        
+        Default is the lowest version possible.`
+    }
   }
 
   /**
