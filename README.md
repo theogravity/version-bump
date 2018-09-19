@@ -53,23 +53,17 @@ calling `version-bump` without any options.
 ```
 $ version-bump
 
-  Usage:  [options] <strategy>
+Commands:
+  version-bump cli [bump]  Performs a version bump based on the --bump flag
 
-  Options:
-
-    -V, --version             output the version number
-    --configFile [fileName]   Name of the optional config file, relative to projectRoot.
-                                        Default is ".version-pump.js".
-    --projectRoot [path]      The project root where the version file is found.
-                                        Default is process.cwd().
-    --versionFile [fileName]  The relative path to the JSON version file from projectRoot
-                                        that contains the "version" property.
-                                        Default is "package.json".
-    -h, --help                output usage information
-
-  Strategies: (use version-bump <strategy> --help for more info)
-
-    cli [options]             Performs a version bump based on command line options.
+Options:
+  --version      Show version number                                                                           [boolean]
+  --projectRoot  The project root where the version file is found. Default is process.cwd()
+                                                                   [default: "/Users/t.gravity/sixfive-cs/version-bump"]
+  --configFile   Name of the optional config file, relative to projectRoot.                [default: ".version-bump.js"]
+  --versionFile  The relative path to the JSON version file from projectRoot that contains the "version" property.
+                                                                                               [default: "package.json"]
+  --help         Show help                                                                                     [boolean]
 ```
 
 ### Get help on a version strategy
@@ -77,38 +71,44 @@ $ version-bump
 ```
 $ version-bump cli --help
 
-  Usage: cli [options]
+Performs a version bump based on the --bump flag
 
-  Performs a version bump based on command line options.
+Positionals:
+  bump  Version type to bump.
 
-  Options:
+        Values can be:
+        * major
+        * minor
+        * patch
+        * pre-major
+        * pre-minor
+        * pre-patch
+        * pre-release
+        * pre-*:<colon-sep-tags> (pre-release:alpha:rc)
+        * build-release
+        * build-release:<colon-sep-tags> (build-release:qa)
 
-    --bump <bumpType>  Bump the version based on <bumpType>.
-                        Values can be:
-                            * major
-                            * minor
-                            * patch
-                            * pre-major
-                            * pre-minor
-                            * pre-patch
-                            * pre-release
-                            * pre-*:<colon-sep-tags> (pre-release:alpha:rc)
-                            * build-release
-                            * build-release:<colon-sep-tags> (build-release:qa)
+        Default is the lowest version possible.
 
-                        Default is the lowest version possible.
-    -h, --help         output usage information
+Options:
+  --version      Show version number                                                                           [boolean]
+  --projectRoot  The project root where the version file is found. Default is process.cwd()
+                                                                   [default: "/Users/t.gravity/sixfive-cs/version-bump"]
+  --configFile   Name of the optional config file, relative to projectRoot.                [default: ".version-bump.js"]
+  --versionFile  The relative path to the JSON version file from projectRoot that contains the "version" property.
+                                                                                               [default: "package.json"]
+  --help         Show help                                                                                     [boolean]
 ```
 
 ## Custom configuration file
 
 To spare yourself from having to specify command line options each time, you can use a custom config file.
 
-Place `.changelog.js` in the root of your project.
+Place `.version-bump.js` in the root of your project.
 
 (The file name can be configured with the `--configFile` option, which is relative to `--projectRoot`.)
 
-If detected, `changelog-version` will derive options from this file.
+If detected, `version-bump` will derive options from this file.
 
 With the exception of `projectRoot`, options defined on the command line will take
 precedence.
@@ -145,12 +145,15 @@ module.exports = {
     versionData.pre = ['alpha', 1]
     return versionData
   },
-
   versionFile: 'myVersionFile.json',
   // Name of the strategy as found in the strategy list in the CLI
   strategy: 'cli',
   // Options specific to the strategy you are using
-  bump: 'minor'
+  // root properties can be set to straight values, or (async) functions that return a value
+  // this corresponds to the --bump option
+  bump: () => {
+    return 'minor'
+  }
 }
 ```
 
@@ -180,9 +183,11 @@ This results in:
 
 Aside from the command line options, the config file offers additional properties:
 
-#### `async onBeforeRelease(versionData)`
+#### `async onBeforeRelease(versionData)` : versionData
 
 This is called after the version has been incremented, but before the final write of the version to the file.
+
+You must return the original or updated `versionData`.
 
 ## Installing other strategies
 
