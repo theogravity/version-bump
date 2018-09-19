@@ -27,5 +27,5 @@ module.exports = {
   onBeforeRelease: (versionData) => {
     return versionData
   },
-  strategy: 'git-commit-msg'
+  strategy: 'cli'
 }

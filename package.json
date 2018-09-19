@@ -47,8 +47,7 @@
     "pre-commit": "^1.2.2",
     "prettier-standard": "^8.0.1",
     "standard": "^11.0.1",
-    "toc-md": "^0.2.0",
-    "version-bump-plugin-git": "^1.0.2"
+    "toc-md": "^0.2.0"
   },
   "repository": {
     "type": "git",
