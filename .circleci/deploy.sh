@@ -33,15 +33,17 @@ then
   # The CI does not end up recursively building it
 
   # This gets the last commit log message
-  LAST_COMMIT_MSG=`version-bump show-version`
+  PKG_VERSION=`version-bump show-version`
 
   # Appending [skip ci] to the log message
   # Note: --amend does not trigger the pre-commit hooks
-  git commit --amend -m "${LAST_COMMIT_MSG} [skip ci]"
+  git commit --amend -m "${PKG_VERSION} [skip ci]"
+
+  git tag v${PKG_VERSION}
 
   # Push the commits back to master and assign a versioned release tag
   # Had to add --force because the pull was getting rejected each time
-  git push --force && git push origin "v${LAST_COMMIT_MSG}" --force
+  git push --force && git push origin "v${PKG_VERSION}" --force
 
   # Publish the package to npm
   echo "Publishing package"
