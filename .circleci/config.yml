@@ -31,7 +31,7 @@ jobs:
         # You need to add a deploy key with write permission in order for the CI to commit changes
         # back to the repo
         # https://circleci.com/docs/2.0/gh-bb-integration/#adding-readwrite-deployment-keys-to-github-or-bitbucket
-        - "41:7b:3c:1a:2b:94:34:53:78:cb:9c:e9:49:5d:5c:8f"
+        - "c6:88:8c:c5:04:59:f2:e2:ae:f2:f8:c2:82:d4:89:59"
     # Download and cache dependencies so subsequent builds run faster
     - restore_cache:
         keys:
