@@ -5,6 +5,7 @@ import yargs from 'yargs'
 import StrategyLoader from '../StrategyLoader'
 import VersionBump from '../VersionBump'
 import ConfigParser from '../ConfigParser'
+import { readVersionFile } from '../utils'
 
 const loader = new StrategyLoader()
 const packageData = require('../../package.json')
@@ -20,7 +21,8 @@ async function execCli () {
     .options({
       projectRoot: {
         describe:
-          'The project root where the version file is found. Default is process.cwd()'
+          'The project root where the version file is found. Default is process.cwd()',
+        default: process.cwd()
       },
       configFile: {
         describe: 'Name of the optional config file, relative to projectRoot.'
@@ -28,9 +30,32 @@ async function execCli () {
       versionFile: {
         describe:
           'The relative path to the JSON version file from projectRoot ' +
-          'that contains the "version" property.'
+          'that contains the "version" property.',
+        default: 'package.json'
       }
     })
+
+  cli.command(
+    'show-version',
+    '(not a strategy) Reads the version and outputs it.',
+    yargs => {
+      return yargs
+    },
+    async params => {
+      const contents = await readVersionFile(
+        params.projectRoot,
+        params.versionFile,
+        {
+          logger: {
+            info: () => {}
+          }
+        }
+      )
+      console.log(contents.version)
+      process.exit(0)
+    }
+  )
+
   // This loads the strategies and allows yargs to list them in the commands listing
   await initStrategyCli(cli)
 
@@ -45,7 +70,7 @@ async function execCli () {
   cli = cli.config(options)
 
   if (!options.strategy) {
-    cli = cli.demandCommand(['strategy']).help()
+    cli = cli.demandCommand().help()
 
     // eslint-disable-next-line no-unused-expressions
     cli.argv

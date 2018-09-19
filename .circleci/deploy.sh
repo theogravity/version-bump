@@ -25,12 +25,13 @@ then
 
   # Changelog is now stamped with the version / time info - add to git
   git add CHANGELOG.md
+  git add package.json
 
   # Amend the version commit with a ci skip so when we push the commits from the CI
   # The CI does not end up recursively building it
 
   # This gets the last commit log message
-  LAST_COMMIT_MSG=`git log -1 --pretty=%B|tr -d '\r'`
+  LAST_COMMIT_MSG=`version-bump show-version`
 
   # Appending [skip ci] to the log message
   # Note: --amend does not trigger the pre-commit hooks
