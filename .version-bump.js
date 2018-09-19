@@ -26,5 +26,6 @@ module.exports = {
    */
   onBeforeRelease: (versionData) => {
     return versionData
-  }
+  },
+  strategy: 'cli'
 }

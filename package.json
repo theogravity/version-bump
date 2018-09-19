@@ -3,6 +3,9 @@
   "version": "0.0.5",
   "description": "Version bump package.json (or a version file) via various plugins (eg cli, git, etc).",
   "main": "lib/index.js",
+  "bin": {
+    "version-bump": "lib/bin/version-bump.js"
+  },
   "scripts": {
     "version-bump": "node --require @babel/register ./src/bin/version-bump.js",
     "changelog:help": "changelog-version",
@@ -12,7 +15,8 @@
     "test": "jest",
     "build": "babel src -d lib",
     "version-bump:debug": "node --inspect-brk --require @babel/register ./src/bin/version-bump.js",
-    "prepublishOnly": "jest && babel src -d lib"
+    "prepublishOnly": "jest && babel src -d lib",
+    "prepare-publish": "npm-version-git-cli && npm run changelog:release"
   },
   "dependencies": {
     "debug": "^3.1.0",
@@ -37,6 +41,7 @@
     "jest-junit-reporter": "^1.1.0",
     "lint-staged": "^7.2.0",
     "mock-fs": "^4.5.0",
+    "npm-version-git-cli": "^2.3.1",
     "pre-commit": "^1.2.2",
     "prettier-standard": "^8.0.1",
     "standard": "^11.0.1",
@@ -96,6 +101,9 @@
     ],
     "testResultsProcessor": "./node_modules/jest-junit-reporter",
     "testEnvironment": "node",
-    "testPathIgnorePatterns": ["/node_modules/", "/lib"]
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/lib"
+    ]
   }
 }

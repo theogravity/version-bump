@@ -12,6 +12,11 @@ import logger from '../__mocks__/logger'
 const defaultVersionContent = '{"version": "1.2.3"}'
 const versionContentPreBuild = '{"version": "1.2.3-pre.1+qa.1"}'
 
+const defaultOptions = {
+  projectRoot: process.cwd(),
+  versionFile: 'package.json'
+}
+
 afterEach(() => {
   fsMock.restore()
 })
@@ -23,6 +28,7 @@ describe('VersionBump class', () => {
     })
 
     const vb = new VersionBump({
+      ...defaultOptions,
       bump: 'patch'
     }, { logger: logger })
 
@@ -41,6 +47,7 @@ describe('VersionBump class', () => {
     })
 
     const vb = new VersionBump({
+      ...defaultOptions,
       bump: 'patch'
     }, { logger: logger })
 
@@ -59,6 +66,7 @@ describe('VersionBump class', () => {
     })
 
     const vb = new VersionBump({
+      ...defaultOptions,
       bump: 'patch'
     }, { logger: logger })
 
@@ -76,7 +84,8 @@ describe('VersionBump class', () => {
       'package.json': versionContentPreBuild
     })
 
-    const vb = new VersionBump({}, { logger: logger })
+    const vb = new VersionBump(defaultOptions, { logger: logger })
+
     await vb.initStrategy(CliBumpStrategy)
     await vb.bumpVersion()
     const data = await readVersionFile(process.cwd(), 'package.json', { logger })
@@ -92,6 +101,7 @@ describe('VersionBump class', () => {
     })
 
     const vb = new VersionBump({
+      ...defaultOptions,
       bump: 'minor'
     }, { logger: logger })
 
@@ -110,6 +120,7 @@ describe('VersionBump class', () => {
     })
 
     const vb = new VersionBump({
+      ...defaultOptions,
       bump: 'patch'
     }, { logger: logger })
 
@@ -128,6 +139,7 @@ describe('VersionBump class', () => {
     })
 
     const vb = new VersionBump({
+      ...defaultOptions,
       bump: 'pre-release'
     }, { logger: logger })
 
@@ -146,6 +158,7 @@ describe('VersionBump class', () => {
     })
 
     const vb = new VersionBump({
+      ...defaultOptions,
       bump: 'pre-release'
     }, { logger: logger })
 
@@ -164,6 +177,7 @@ describe('VersionBump class', () => {
     })
 
     const vb = new VersionBump({
+      ...defaultOptions,
       bump: 'build-release'
     }, { logger: logger })
 
@@ -182,6 +196,7 @@ describe('VersionBump class', () => {
     })
 
     const vb = new VersionBump({
+      ...defaultOptions,
       onBeforeRelease: (versionData) => {
         versionData.build = ['test', 1]
         return versionData

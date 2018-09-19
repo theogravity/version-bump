@@ -124,10 +124,17 @@ precedence.
 // since the file is imported using require()
 // See command line options for additional available properties
 module.exports = {
+  // (required) Name of the strategy as found in the strategy list in the CLI
+  strategy: 'cli',
+
+  // (optional) Root of the project where the version file is found
+  // default is process.cwd()
   projectRoot: () => {
     return process.cwd()
   },
+
   /**
+   * (optional)
    * This is called after the version has been incremented
    * and before the version data is to be converted to a string and saved
    * to the version file
@@ -145,9 +152,11 @@ module.exports = {
     versionData.pre = ['alpha', 1]
     return versionData
   },
+
+  // (optional) Version file starting from projectRoot
+  // default is package.json
   versionFile: 'myVersionFile.json',
-  // Name of the strategy as found in the strategy list in the CLI
-  strategy: 'cli',
+
   // Options specific to the strategy you are using
   // root properties can be set to straight values, or (async) functions that return a value
   // this corresponds to the --bump option
@@ -206,4 +215,4 @@ In the command line.
 
 ### Available strategies
 
-* [version-bump-plugin-git]()
+* [version-bump-plugin-git](https://github.com/theogravity/version-bump-plugin-git)

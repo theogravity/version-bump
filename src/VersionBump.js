@@ -1,4 +1,3 @@
-import ConfigParser from './ConfigParser'
 import { readVersionFile, writeVersionFile } from './utils'
 import { join } from 'path'
 import { versionObjToString } from './version-utils'
@@ -21,11 +20,8 @@ export default class VersionBump {
    */
   async initStrategy (Strategy) {
     if (!Strategy) {
-      throw new Error('VersionBump#init() requires the Strategy parameter')
+      throw new Error('VersionBump#initStrategy() requires the Strategy parameter')
     }
-
-    const parser = new ConfigParser(this.options, { logger: this.logger })
-    this.options = await parser.parseConfig()
 
     this.strategyInstance = new Strategy(this.options, {
       logger: this.logger
@@ -35,6 +31,15 @@ export default class VersionBump {
       projectRoot,
       versionFile
     } = this.options
+
+
+    if (!versionFile) {
+      throw new Error('Required option not defined: versionFile')
+    }
+
+    if (!projectRoot) {
+      throw new Error('Required option not defined: projectRoot')
+    }
 
     this.packageData = await readVersionFile(projectRoot, versionFile, {
       logger: this.logger
@@ -60,8 +65,11 @@ export default class VersionBump {
       throw new Error('VersionBump#init() was not called before bumpVersion()')
     }
 
+    this.logger.info('Executing strategy...')
+
     const packageData = this.packageData
 
+    // execute the strategy
     let newVersion = await this.strategyInstance.getNextVersion()
 
     if (onBeforeRelease) {

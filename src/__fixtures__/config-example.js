@@ -11,5 +11,6 @@ module.exports = {
     return process.cwd()
   },
   versionFile: 'test.json',
-  bumpStrategy: 'dummyStrategy'
+  strategy: 'cli',
+  bump: 'minor'
 }

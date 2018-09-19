@@ -3694,6 +3694,10 @@ npm-run-path@^2.0.0:
   dependencies:
     path-key "^2.0.0"
 
+npm-version-git-cli@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/npm-version-git-cli/-/npm-version-git-cli-2.3.1.tgz#c2f8988f5a6581ad6714c51e48c8d44055a4f548"
+
 npm-which@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/npm-which/-/npm-which-3.0.1.tgz#9225f26ec3a285c209cae67c3b11a6b4ab7140aa"

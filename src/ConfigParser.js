@@ -36,12 +36,12 @@ export default class ConfigParser {
    * into other classes.
    * @returns {Promise<object>}
    */
-  async parseConfig () {
+  async parseConfig (useConfigFile = true) {
     const configFile = join(this.projectRoot, this.configFile)
     let options = {}
     let defaultOptions = this.options
 
-    if (existsSync(configFile)) {
+    if (useConfigFile && existsSync(configFile)) {
       this.logger.info(`Using config file: ${configFile}`)
 
       try {
@@ -62,6 +62,10 @@ export default class ConfigParser {
         // use that value instead, even if it's specified on the
         // command line
         projectRoot
+      }
+
+      if (!defaultOptions.strategy) {
+        throw new Error('Config file is missing required field: strategy')
       }
     }
 
