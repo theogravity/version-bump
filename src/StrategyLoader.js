@@ -6,9 +6,7 @@ export default class StrategyLoader {
   constructor () {
     this.strategies = {}
     this._loadExternalPlugins()
-    this.registerStrategy({
-      Constructor: CliBumpStrategy
-    })
+    this.registerStrategy(CliBumpStrategy)
   }
 
   /**
@@ -24,39 +22,45 @@ export default class StrategyLoader {
       throw new Error('Version bump strategy not found: ' + name)
     }
 
-    return this.strategies[name].Constructor
+    return this.strategies[name].Strategy
   }
 
   /**
    * Registers a strategy.
    * @param {BaseVersionStrategy} fn A class that extends BaseVersionStrategy
    */
-  registerStrategy ({ Constructor } = {}) {
-    if (!Constructor.strategyShortName) {
-      throw new Error('strategyShortName not defined for strategy: ' + Constructor.toString())
+  registerStrategy = Strategy => {
+    if (Strategy && !Strategy.strategyShortName) {
+      throw new Error(
+        'strategyShortName not defined for strategy: ' + Strategy.name
+      )
     }
 
-    const name = Constructor.strategyShortName
+    const name = Strategy.strategyShortName
 
     this.strategies[name] = {
-      Constructor
+      Strategy
     }
   }
 
   _loadExternalPlugins () {
-    const plugins = loadDeps('version-bump-plugin')
+    const plugins = loadDeps([
+      '*/version-bump-plugin-*',
+      'version-bump-plugin-*'
+    ])
 
-    Object.keys(plugins).forEach((plugin) => {
+    Object.keys(plugins).forEach(module => {
+      const plugin = plugins[module]
       // check if each plugin has the getStrategies fn
       // call it to add the strategies
       if (plugin.getStrategies) {
         const strats = plugin.getStrategies()
-
-        strats.forEach((strat) => {
-          if (typeof strat === 'object') {
-            this.registerStrategy(strat)
-          }
-        })
+        strats.forEach(this.registerStrategy)
+      } else {
+        console.warn(
+          'Found plugin, but getStrategies() was not defined for it:',
+          module
+        )
       }
     })
   }

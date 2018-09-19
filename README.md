@@ -1,5 +1,7 @@
 # version-bump
 
+[![CircleCI](https://circleci.com/gh/theogravity/changelog-version.svg?style=svg)](https://circleci.com/gh/theogravity/changelog-version)
+
 Version bump package.json (or a file with a `version` property) via various version bump plugins/strategies.
 
 ## What it offers
@@ -13,6 +15,16 @@ as part of the API
 ## Contents
 
 <!-- TOC -->
+- [Install](#install)
+- [Quick start usage](#quick-start-usage)
+- [CLI Usage](#cli-usage)
+  - [Get help on a version strategy](#get-help-on-a-version-strategy)
+- [Custom configuration file](#custom-configuration-file)
+  - [Additional properties](#additional-properties)
+    - [`async onBeforeRelease(versionData)` : versionData](#async-onbeforereleaseversiondata--versiondata)
+- [Installing other strategies](#installing-other-strategies)
+  - [Available strategies](#available-strategies)
+
 <!-- TOC END -->
 
 ## Install
@@ -215,4 +227,5 @@ In the command line.
 
 ### Available strategies
 
-* [version-bump-plugin-git](https://github.com/theogravity/version-bump-plugin-git)
+* [version-bump-plugin-git](https://github.com/theogravity/version-bump-plugin-git) - Bumps version
+based on last git commit message

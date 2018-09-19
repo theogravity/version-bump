@@ -590,6 +590,23 @@
     dateformat "^3.0.3"
     debug "^3.1.0"
 
+"@theo.gravity/version-bump-plugin-git@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@theo.gravity/version-bump-plugin-git/-/version-bump-plugin-git-0.0.8.tgz#4b4b95b02a034603a15d17af441aae64a2af0788"
+  dependencies:
+    "@theo.gravity/version-bump" "^0.0.6"
+    git-last-commit "^0.3.0"
+
+"@theo.gravity/version-bump@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@theo.gravity/version-bump/-/version-bump-0.0.6.tgz#f44fe47adc6f50bca4609992d25c845e96e16717"
+  dependencies:
+    debug "^3.1.0"
+    load-deps "^1.0.5"
+    semver "^5.5.1"
+    semver-parser "^2.0.1"
+    yargs "^12.0.2"
+
 abab@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.0.tgz#aba0ab4c5eee2d4c79d3487d85450fb2376ebb0f"
@@ -2083,6 +2100,10 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
+git-last-commit@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/git-last-commit/-/git-last-commit-0.3.0.tgz#cc7701adc629b747fd3b33ae5dd753a746ace9df"
+
 glob-base@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/glob-base/-/glob-base-0.3.0.tgz#dbb164f6221b1c0b1ccf82aea328b497df0ea3c4"
@@ -2276,14 +2297,6 @@ http-signature@~1.2.0:
     assert-plus "^1.0.0"
     jsprim "^1.2.2"
     sshpk "^1.7.0"
-
-husky@^0.14.3:
-  version "0.14.3"
-  resolved "https://registry.yarnpkg.com/husky/-/husky-0.14.3.tgz#c69ed74e2d2779769a17ba8399b54ce0b63c12c3"
-  dependencies:
-    is-ci "^1.0.10"
-    normalize-path "^1.0.0"
-    strip-indent "^2.0.0"
 
 iconv-lite@0.4.23:
   version "0.4.23"
@@ -3661,10 +3674,6 @@ normalize-package-data@^2.3.2:
     semver "2 || 3 || 4 || 5"
     validate-npm-package-license "^3.0.1"
 
-normalize-path@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/normalize-path/-/normalize-path-1.0.0.tgz#32d0e472f91ff345701c15a8311018d3b0a90379"
-
 normalize-path@^2.0.1, normalize-path@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/normalize-path/-/normalize-path-2.1.1.tgz#1ab28b556e198363a8c1a6f7e6fa20137fe6aed9"
@@ -3693,10 +3702,6 @@ npm-run-path@^2.0.0:
   resolved "https://registry.yarnpkg.com/npm-run-path/-/npm-run-path-2.0.2.tgz#35a9232dfa35d7067b4cb2ddf2357b1871536c5f"
   dependencies:
     path-key "^2.0.0"
-
-npm-version-git-cli@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/npm-version-git-cli/-/npm-version-git-cli-2.3.1.tgz#c2f8988f5a6581ad6714c51e48c8d44055a4f548"
 
 npm-which@^3.0.1:
   version "3.0.1"
@@ -4806,10 +4811,6 @@ strip-bom@^2.0.0:
 strip-eof@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/strip-eof/-/strip-eof-1.0.0.tgz#bb43ff5598a6eb05d89b59fcd129c983313606bf"
-
-strip-indent@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/strip-indent/-/strip-indent-2.0.0.tgz#5ef8db295d01e6ed6cbf7aab96998d7822527b68"
 
 strip-json-comments@~2.0.1:
   version "2.0.1"

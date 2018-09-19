@@ -18,17 +18,21 @@ async function execCli () {
     .usage('version-bump <strategy>')
     .wrap(120)
     .options({
-      'projectRoot': {
-        describe: 'The project root where the version file is found. Default is process.cwd()'
+      projectRoot: {
+        describe:
+          'The project root where the version file is found. Default is process.cwd()'
       },
-      'configFile': {
+      configFile: {
         describe: 'Name of the optional config file, relative to projectRoot.'
       },
-      'versionFile': {
-        describe: 'The relative path to the JSON version file from projectRoot ' +
+      versionFile: {
+        describe:
+          'The relative path to the JSON version file from projectRoot ' +
           'that contains the "version" property.'
       }
     })
+  // This loads the strategies and allows yargs to list them in the commands listing
+  await initStrategyCli(cli)
 
   // User did not explicity define a command to use
   // check if a config file exists and use that if it does
@@ -37,15 +41,11 @@ async function execCli () {
   const parser = new ConfigParser(cli.argv, { logger: console })
   options = await parser.parseConfig(useConfigFile)
 
-  // This loads the strategies and allows yargs to list them in the commands listing
-  await initStrategyCli(cli)
-
   // set the new options
   cli = cli.config(options)
 
   if (!options.strategy) {
-    cli = cli.demandCommand()
-      .help()
+    cli = cli.demandCommand(['strategy']).help()
 
     // eslint-disable-next-line no-unused-expressions
     cli.argv
@@ -60,7 +60,7 @@ async function initStrategyCli (yargs) {
   // Goes through each strategy definition
   // and creates a yargs command out of it
   // see: https://github.com/yargs/yargs/blob/master/docs/advanced.md#providing-a-command-module
-  Object.keys(loader.getStrategies()).forEach((stratName) => {
+  Object.keys(loader.getStrategies()).forEach(stratName => {
     const cmd = loader.getStrategyConstructor(stratName).getCommandConfig(yargs)
 
     if (cmd) {
@@ -89,10 +89,12 @@ function execStrategy (stratName) {
   }
 }
 
-execCli().then(() => {
-  // purposely empty
-  // because yargs calls the handler out of band
-}).catch((e) => {
-  console.error(e)
-  process.exit(-1)
-})
+execCli()
+  .then(() => {
+    // purposely empty
+    // because yargs calls the handler out of band
+  })
+  .catch(e => {
+    console.error(e)
+    process.exit(-1)
+  })

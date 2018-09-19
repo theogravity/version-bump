@@ -1,6 +1,6 @@
 {
   "name": "@theo.gravity/version-bump",
-  "version": "0.0.6",
+  "version": "1.0.4",
   "description": "Version bump package.json (or a version file) via various plugins (eg cli, git, etc).",
   "main": "lib/index.js",
   "bin": {
@@ -12,11 +12,14 @@
     "changelog:verify": "changelog-version verify",
     "changelog:prepare": "changelog-version prepare",
     "changelog:release": "changelog-version release",
+    "toc": "toc-md README.md README.md",
     "test": "jest",
     "build": "babel src -d lib",
+    "add-readme": "git add README.md",
     "version-bump:debug": "node --inspect-brk --require @babel/register ./src/bin/version-bump.js",
     "prepublishOnly": "jest && babel src -d lib",
-    "prepare-publish": "npm-version-git-cli && npm run changelog:release"
+    "prepare-publish": "version-bump cli && npm run changelog:release",
+    "lint-staged": "lint-staged"
   },
   "dependencies": {
     "debug": "^3.1.0",
@@ -34,14 +37,14 @@
     "@babel/preset-env": "^7.0.0",
     "@babel/register": "^7.0.0",
     "@theo.gravity/changelog-version": "^2.1.1",
+    "@theo.gravity/version-bump": "^0.0.6",
+    "@theo.gravity/version-bump-plugin-git": "^0.0.8",
     "babel-core": "^7.0.0-bridge.0",
-    "husky": "^0.14.3",
     "jest": "^23.6.0",
     "jest-cli": "^23.6.0",
     "jest-junit-reporter": "^1.1.0",
     "lint-staged": "^7.2.0",
     "mock-fs": "^4.5.0",
-    "npm-version-git-cli": "^2.3.1",
     "pre-commit": "^1.2.2",
     "prettier-standard": "^8.0.1",
     "standard": "^11.0.1",
@@ -74,17 +77,10 @@
     "version-bump-plugin"
   ],
   "lint-staged": {
-    "linters": {
-      "src/**/*.js": [
-        "prettier-standard",
-        "git add"
-      ]
-    }
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged && npm test"
-    }
+    "src/**/*.js": [
+      "prettier-standard",
+      "git add"
+    ]
   },
   "author": "Theo Gravity <theo@suteki.nu>",
   "license": "MIT",
@@ -105,5 +101,13 @@
       "/node_modules/",
       "/lib"
     ]
-  }
+  },
+  "pre-commit": [
+    "lint-staged",
+    "changelog:verify",
+    "test",
+    "build",
+    "toc",
+    "add-readme"
+  ]
 }
