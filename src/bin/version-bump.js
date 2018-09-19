@@ -102,11 +102,11 @@ async function initStrategyCli (yargs) {
 }
 
 function execStrategy (stratName) {
-  return async () => {
+  return async params => {
     console.info('Using version bump strategy:', stratName)
 
     const Strategy = loader.getStrategyConstructor(stratName)
-    const vb = new VersionBump(options)
+    const vb = new VersionBump(params)
 
     await vb.initStrategy(Strategy)
     await vb.bumpVersion()
