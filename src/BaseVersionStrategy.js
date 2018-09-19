@@ -1,5 +1,4 @@
 import { parseSemVer } from 'semver-parser'
-import { parseOptions } from './utils'
 
 export default class BaseVersionStrategy {
   /**
@@ -69,16 +68,10 @@ export default class BaseVersionStrategy {
 
   /**
    * Returns a structure that contains metadata about the parsed version.
-   * @returns {Object} Partial result of semver-parser#parseSemVer
+   * @returns {Object} Result of semver-parser#parseSemVer
    */
   getCurrentVersion () {
-    return {
-      major: this.currentVersion.major,
-      minor: this.currentVersion.minor,
-      patch: this.currentVersion.patch,
-      pre: this.currentVersion.pre,
-      build: this.currentVersion.build
-    }
+    return this.currentVersion
   }
 
   /**

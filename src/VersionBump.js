@@ -1,6 +1,7 @@
 import ConfigParser from './ConfigParser'
-import { writeVersionFile, readVersionFile } from './utils'
+import { readVersionFile, writeVersionFile } from './utils'
 import { join } from 'path'
+import { versionObjToString } from './version-utils'
 
 export default class VersionBump {
   /**
@@ -77,20 +78,4 @@ export default class VersionBump {
 
     await writeVersionFile(projectRoot, versionFile, JSON.stringify(packageData, 0, 2) + '\n')
   }
-}
-
-// See grammar for semver rules
-// https://github.com/semver/semver/blob/master/semver.md#backusnaur-form-grammar-for-valid-semver-versions
-function versionObjToString (versionData) {
-  let version = `${versionData.major}.${versionData.minor}.${versionData.patch}`
-
-  if (versionData.pre && versionData.pre.length > 0) {
-    version = version + '-' + versionData.pre.join('.')
-  }
-
-  if (versionData.build && versionData.build.length > 0) {
-    version = version + '+' + versionData.build.join('.')
-  }
-
-  return version
 }

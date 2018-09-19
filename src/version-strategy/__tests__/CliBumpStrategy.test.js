@@ -17,7 +17,9 @@ describe('CliBumpStrategy', () => {
       'major': 2,
       'minor': 0,
       'patch': 0,
-      'pre': undefined
+      'pre': undefined,
+      'matches': true,
+      'version': '2.0.0'
     })
   })
 
@@ -35,7 +37,9 @@ describe('CliBumpStrategy', () => {
       'major': 2,
       'minor': 0,
       'patch': 0,
-      'pre': undefined
+      'pre': undefined,
+      'matches': true,
+      'version': '2.0.0'
     })
   })
 
@@ -53,7 +57,9 @@ describe('CliBumpStrategy', () => {
       'major': 1,
       'minor': 3,
       'patch': 0,
-      'pre': undefined
+      'pre': undefined,
+      'matches': true,
+      'version': '1.3.0'
     })
   })
 
@@ -71,7 +77,9 @@ describe('CliBumpStrategy', () => {
       'major': 1,
       'minor': 2,
       'patch': 4,
-      'pre': undefined
+      'pre': undefined,
+      'matches': true,
+      'version': '1.2.4'
     })
   })
 
@@ -89,7 +97,9 @@ describe('CliBumpStrategy', () => {
       'major': 2,
       'minor': 0,
       'patch': 0,
-      'pre': [0]
+      'pre': [0],
+      'matches': true,
+      'version': '2.0.0-0'
     })
   })
 
@@ -107,7 +117,9 @@ describe('CliBumpStrategy', () => {
       'major': 1,
       'minor': 3,
       'patch': 0,
-      'pre': [0]
+      'pre': [0],
+      'matches': true,
+      'version': '1.3.0-0'
     })
   })
 
@@ -125,7 +137,9 @@ describe('CliBumpStrategy', () => {
       'major': 1,
       'minor': 2,
       'patch': 4,
-      'pre': [0]
+      'pre': [0],
+      'matches': true,
+      'version': '1.2.4-0'
     })
   })
 
@@ -142,8 +156,10 @@ describe('CliBumpStrategy', () => {
       'build': undefined,
       'major': 1,
       'minor': 2,
-      'patch': 3,
-      'pre': [0]
+      'patch': 4,
+      'pre': [0],
+      'matches': true,
+      'version': '1.2.4-0'
     })
   })
 
@@ -161,7 +177,9 @@ describe('CliBumpStrategy', () => {
       'major': 1,
       'minor': 2,
       'patch': 3,
-      'pre': ['pre', 2]
+      'pre': ['pre', 2],
+      'matches': true,
+      'version': '1.2.3-pre.2'
     })
   })
 
@@ -179,7 +197,9 @@ describe('CliBumpStrategy', () => {
       'major': 1,
       'minor': 2,
       'patch': 3,
-      'pre': ['alpha', 2]
+      'pre': ['alpha', 2],
+      'matches': true,
+      'version': '1.2.3-alpha.2'
     })
   })
 
@@ -197,7 +217,9 @@ describe('CliBumpStrategy', () => {
       'major': 1,
       'minor': 2,
       'patch': 3,
-      'pre': undefined
+      'pre': undefined,
+      'matches': true,
+      'version': '1.2.3+0'
     })
   })
 
@@ -215,7 +237,9 @@ describe('CliBumpStrategy', () => {
       'major': 1,
       'minor': 2,
       'patch': 3,
-      'pre': ['pre', 1]
+      'pre': ['pre', 1],
+      'matches': true,
+      'version': '1.2.3-pre.1+0'
     })
   })
 
@@ -233,7 +257,9 @@ describe('CliBumpStrategy', () => {
       'major': 1,
       'minor': 2,
       'patch': 3,
-      'pre': ['pre', 1]
+      'pre': ['pre', 1],
+      'matches': true,
+      'version': '1.2.3-pre.1+qa.1'
     })
   })
 
@@ -251,7 +277,9 @@ describe('CliBumpStrategy', () => {
       'major': 1,
       'minor': 2,
       'patch': 3,
-      'pre': undefined
+      'pre': undefined,
+      'matches': true,
+      'version': '1.2.3+qa.2'
     })
   })
 })

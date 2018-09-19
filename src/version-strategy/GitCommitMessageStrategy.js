@@ -2,7 +2,7 @@ import util from 'util'
 
 import BaseVersionStrategy from '../BaseVersionStrategy'
 import { getLastCommit } from 'git-last-commit'
-import bumpVersionData from '../bump-version-data'
+import { bumpVersionData } from '../version-utils'
 import { BUMP_LEVEL } from '../consts'
 
 const getLastCommitAsync = util.promisify(getLastCommit)

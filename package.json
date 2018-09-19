@@ -18,6 +18,7 @@
     "debug": "^3.1.0",
     "git-last-commit": "^0.3.0",
     "load-deps": "^1.0.5",
+    "semver": "^5.5.1",
     "semver-parser": "^2.0.1",
     "yargs": "^12.0.2"
   },
@@ -26,8 +27,10 @@
     "@babel/core": "^7.0.0",
     "@babel/plugin-proposal-class-properties": "^7.0.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/register": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
     "@theo.gravity/changelog-version": "^2.1.1",
     "husky": "^0.14.3",
     "jest": "^23.6.0",
@@ -85,6 +88,9 @@
     "url": "https://github.com/theogravity/version-bump/issues"
   },
   "homepage": "https://github.com/theogravity/version-bump#readme",
+  "resolutions": {
+    "babel-core": "7.0.0-bridge.0"
+  },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.js"

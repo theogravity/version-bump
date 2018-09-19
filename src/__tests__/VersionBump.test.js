@@ -67,7 +67,7 @@ describe('VersionBump class', () => {
     const data = await readVersionFile(process.cwd(), 'package.json', { logger })
 
     expect(data).toEqual({
-      version: '1.2.4'
+      version: '1.2.3'
     })
   })
 
@@ -136,7 +136,7 @@ describe('VersionBump class', () => {
     const data = await readVersionFile(process.cwd(), 'package.json', { logger })
 
     expect(data).toEqual({
-      version: '1.2.3-0'
+      version: '1.2.4-0'
     })
   })
 
@@ -154,7 +154,7 @@ describe('VersionBump class', () => {
     const data = await readVersionFile(process.cwd(), 'package.json', { logger })
 
     expect(data).toEqual({
-      version: '1.2.3-pre.2+qa.1'
+      version: '1.2.3-pre.2'
     })
   })
 

@@ -1,6 +1,6 @@
 import BaseVersionStrategy from '../BaseVersionStrategy'
 import {BUMP_LEVEL} from '../consts'
-import bumpVersionData from '../bump-version-data'
+import { bumpVersionData } from '../version-utils'
 
 /**
  * Performs a version bump based on the --bump flag
