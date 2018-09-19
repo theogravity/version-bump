@@ -14,7 +14,7 @@ then
   git stash
 
   # Make sure to get the latest master (if there were any prior commits)
-  git pull origin
+  git pull origin master
 
   # Re-apply the stash
   git stash apply
