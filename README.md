@@ -1,6 +1,6 @@
 # version-bump
 
-[![CircleCI](https://circleci.com/gh/theogravity/changelog-version.svg?style=svg)](https://circleci.com/gh/theogravity/changelog-version)
+[![npm version](https://badge.fury.io/js/%40theo.gravity%2Fversion-bump.svg)](https://badge.fury.io/js/%40theo.gravity%2Fversion-bump) [![CircleCI](https://circleci.com/gh/theogravity/changelog-version.svg?style=svg)](https://circleci.com/gh/theogravity/changelog-version)
 
 Version bump package.json (or a file with a `version` property) via various version bump plugins/strategies.
 

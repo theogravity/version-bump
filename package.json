@@ -18,7 +18,7 @@
     "add-readme": "git add README.md",
     "version-bump:debug": "node --inspect-brk --require @babel/register ./src/bin/version-bump.js",
     "prepublishOnly": "jest && babel src -d lib",
-    "prepare-publish": "changelog:verify && version-bump && npm run changelog:release",
+    "prepare-publish": "npm run changelog:verify && version-bump && npm run changelog:release",
     "lint-staged": "lint-staged"
   },
   "dependencies": {
