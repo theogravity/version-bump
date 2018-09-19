@@ -17,6 +17,10 @@ export default class StrategyLoader {
     return this.strategies
   }
 
+  strategyExists (name) {
+    return this.strategies[name] !== undefined
+  }
+
   getStrategyConstructor (name) {
     if (!this.strategies[name]) {
       throw new Error('Version bump strategy not found: ' + name)

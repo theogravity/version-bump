@@ -70,11 +70,12 @@ async function execCli () {
   cli = cli.config(options)
 
   if (!options.strategy) {
-    cli = cli.demandCommand().help()
-
-    // eslint-disable-next-line no-unused-expressions
-    cli.argv
+    cli.showHelp()
   } else {
+    if (!loader.strategyExists(options.strategy)) {
+      throw new Error('Strategy does not exist: ' + options.strategy)
+    }
+
     // Execute the strategy
     // eslint-disable-next-line no-unused-expressions
     cli.parse([options.strategy]).argv
