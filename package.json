@@ -1,6 +1,6 @@
 {
   "name": "@theo.gravity/version-bump",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "Version bump package.json (or a version file) via various plugins (eg cli, git, etc).",
   "main": "lib/index.js",
   "bin": {
