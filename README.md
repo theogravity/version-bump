@@ -127,7 +127,7 @@ precedence.
 
 ```js
 // This is an optional configuration file
-// you can use with changelog-version.
+// you can use with version-bump.
 // If specified, any command line args has priority over the
 // values returned in this file.
 
