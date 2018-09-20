@@ -37,7 +37,7 @@ then
 
   # Appending [skip ci] to the log message
   # Note: --amend does not trigger the pre-commit hooks
-  git commit --amend -m "${PKG_VERSION} [skip ci]"
+  git commit -m "${PKG_VERSION} [skip ci]"
 
   git tag v${PKG_VERSION}
 
