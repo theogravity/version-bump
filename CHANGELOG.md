@@ -1,4 +1,4 @@
-# UNRELEASED
+# 1.0.22 - Thu Sep 20 2018 08:01:39
 
 Just fixes for CI
 
