@@ -4,7 +4,7 @@ if [[ "${CIRCLE_BRANCH}" == "master" ]]
 then
   echo "Raising package version and updating CHANGELOG.md"
 
-  sudo npm i @theo.gravity/version-bump -g
+  sudo npm i @theo.gravity/version-bump@1.0.19 -g
 
   git config --global push.default simple
   git config --global user.email "theo@suteki.nu"
