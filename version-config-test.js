@@ -1,5 +1,5 @@
 
         module.exports = {
-          strategy: 'dummy'
+          strategy: 'cli'
         }
       

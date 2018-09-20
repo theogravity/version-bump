@@ -43,7 +43,7 @@ then
 
   # Push the commits back to master and assign a versioned release tag
   # Had to add --force because the pull was getting rejected each time
-  git push --force && git push origin "v${PKG_VERSION}" --force
+  git push && git push origin "v${PKG_VERSION}"
 
   # Publish the package to npm
   echo "Publishing package"
