@@ -22,8 +22,8 @@ as part of the API
 - [Custom configuration file](#custom-configuration-file)
   - [Additional properties](#additional-properties)
     - [`async onBeforeRelease(versionData)` : versionData](#async-onbeforereleaseversiondata--versiondata)
-- [Installing other strategies](#installing-other-strategies)
-  - [Available strategies](#available-strategies)
+- [Installing other strategies (plugins)](#installing-other-strategies-plugins)
+  - [Available strategies (plugins)](#available-strategies-plugins)
 
 <!-- TOC END -->
 
@@ -210,10 +210,12 @@ This is called after the version has been incremented, but before the final writ
 
 You must return the original or updated `versionData`.
 
-## Installing other strategies
+## Installing other strategies (plugins)
 
 You can find other strategies by searching for
 [`version-bump-plugin`](https://www.npmjs.com/search?q=version-bump-plugin) on npm.
+
+All strategies should contain `version-bump-plugin` in the package name
 
 Once you've found the strategy you want, you simply add it by installing it to your node modules directory.
 
@@ -225,7 +227,7 @@ You should be able to see the list of strategies by doing
 
 In the command line.
 
-### Available strategies
+### Available strategies (plugins)
 
 * [version-bump-plugin-git](https://github.com/theogravity/version-bump-plugin-git) - Bumps version
 based on last git commit message

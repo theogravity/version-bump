@@ -66,3 +66,5 @@ typings/
 lib/
 
 test-report.xml
+version.test.json
+version-config-test.js

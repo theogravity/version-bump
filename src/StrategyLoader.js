@@ -1,6 +1,8 @@
-import loadDeps from 'load-deps'
-
+import findPlugins from 'find-plugins'
+import { join } from 'path'
 import CliBumpStrategy from './version-strategy/CliBumpStrategy'
+
+const PKG_REGEX = /(.*)?version-bump-plugin(.*)/
 
 export default class StrategyLoader {
   constructor () {
@@ -48,13 +50,15 @@ export default class StrategyLoader {
   }
 
   _loadExternalPlugins () {
-    const plugins = loadDeps([
-      '*/version-bump-plugin-*',
-      'version-bump-plugin-*'
-    ])
+    const plugins = findPlugins({
+      filter: function (data) {
+        return PKG_REGEX.test(data.pkg.name)
+      },
+      includeDev: true
+    })
 
-    Object.keys(plugins).forEach(module => {
-      const plugin = plugins[module]
+    plugins.forEach(pluginData => {
+      const plugin = require(pluginData.dir)
       // check if each plugin has the getStrategies fn
       // call it to add the strategies
       if (plugin.getStrategies) {
