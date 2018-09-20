@@ -1,3 +1,7 @@
+# 1.0.21 - Thu Sep 20 2018 07:42:35
+
+Fix bugs with binary
+
 # 1.0.19 - Thu Sep 20 2018 05:38:07
 
 Fix plugin resolver

@@ -3,7 +3,7 @@ import {
   // node docs does not recommend using the async version
   existsSync
 } from 'fs'
-import {getValue, parseOptions} from './utils'
+import { getValue, parseOptions } from './utils'
 
 const debug = require('debug')('config-parser')
 
@@ -53,9 +53,13 @@ export default class ConfigParser {
 
       const projectRoot = await getValue(options.projectRoot)
 
-      const calculatedOptions = await parseOptions(options, CONFIG_OPTIONS_TO_SKIP)
+      const calculatedOptions = await parseOptions(
+        options,
+        CONFIG_OPTIONS_TO_SKIP
+      )
 
       defaultOptions = {
+        _usingConfig: true,
         ...calculatedOptions,
         ...this.options,
         // Speical case: if the config file has projectRoot,
