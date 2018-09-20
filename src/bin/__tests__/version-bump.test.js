@@ -29,16 +29,23 @@ beforeEach(async () => {
 
 describe('version-bump', () => {
   it('should show help', async () => {
-    const { stderr } = await execa('node', defaultArgs)
-
-    expect(stderr).toContain('version-bump <strategy>')
+    try {
+      // have to use shellSync for this one
+      // because the default throws an error
+      execa.shellSync('node', defaultArgs)
+    } catch (e) {
+      expect(e).toContain('version-bump <strategy>')
+    }
   })
 
   it('should show help for an invalid command', async () => {
     defaultArgs.push('invalid-command')
-    const { stderr } = await execa('node', defaultArgs)
 
-    expect(stderr).toContain('version-bump <strategy>')
+    try {
+      execa.shellSync('node', defaultArgs)
+    } catch (e) {
+      expect(e).toContain('version-bump <strategy>')
+    }
   })
 
   it('should show help for cli', async () => {
@@ -99,6 +106,7 @@ describe('version-bump', () => {
       const { stdout } = await execa('node', defaultArgs)
 
       // just in case a commit message contains a version bump tag
+      expect(stdout).not.toContain('An option that does nothing')
       expect(stdout).toContain('New version: 1.2.4')
     })
 

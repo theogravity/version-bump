@@ -30,11 +30,12 @@ describe('ConfigParser class', () => {
     const options = await configParser.parseConfig()
 
     expect(options).toEqual({
-      'bump': 'minor',
-      'configFile': '__fixtures__/config-example.js',
-      'projectRoot': process.cwd(),
-      'strategy': 'cli',
-      'versionFile': 'test.json'
+      bump: 'minor',
+      configFile: '__fixtures__/config-example.js',
+      projectRoot: process.cwd(),
+      strategy: 'cli',
+      versionFile: 'test.json',
+      _usingConfig: true
     })
   })
 })

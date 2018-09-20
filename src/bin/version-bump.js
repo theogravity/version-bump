@@ -16,7 +16,10 @@ async function execCli () {
   // eslint-disable-next-line no-unused-expressions
   let cli = yargs
     .version(packageData.version)
-    .usage('version-bump <strategy>')
+    .usage('$0 <strategy>')
+    .updateStrings({
+      'Commands:': 'Versioning Strategies:\n'
+    })
     .wrap(120)
     .options({
       projectRoot: {
@@ -34,6 +37,8 @@ async function execCli () {
         default: 'package.json'
       }
     })
+    .example('$0 cli major')
+    .example('$0 cli --bump minor')
 
   cli.command(
     'show-version',
@@ -69,16 +74,30 @@ async function execCli () {
   // set the new options
   cli = cli.config(options)
 
-  if (!options.strategy) {
+  // when built as a standalone binary, strategy does not seem to be registered
+  // so capture what the strategy is here
+  const strategy = options.strategy || options._[0]
+
+  if (!strategy && !options._usingConfig) {
     cli.showHelp()
+
+    throw new Error(
+      'A strategy was not specified, or the specified config file could not be found.'
+    )
+  } else if (strategy === 'show-version') {
+    // show-version is not a strategy, run it as a normal yargs command
+    // eslint-disable-next-line no-unused-expressions
+    cli.argv
   } else {
-    if (!loader.strategyExists(options.strategy)) {
-      throw new Error('Strategy does not exist: ' + options.strategy)
+    if (!loader.strategyExists(strategy)) {
+      throw new Error(
+        `Strategy does not exist: ${strategy}. Use --help to see a list of strategies.`
+      )
     }
 
     // Execute the strategy
     // eslint-disable-next-line no-unused-expressions
-    cli.parse([options.strategy]).argv
+    cli.parse([strategy]).argv
   }
 }
 
