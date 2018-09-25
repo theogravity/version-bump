@@ -1,0 +1,6 @@
+src/
+version-config.test.js
+version-test.json
+.babelrc
+test-report.xml
+.circleci/
