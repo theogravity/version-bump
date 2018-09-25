@@ -1,5 +1,5 @@
 import BaseVersionStrategy from '../BaseVersionStrategy'
-import {BUMP_LEVEL} from '../consts'
+import { BUMP_LEVEL } from '../consts'
 import { bumpVersionData } from '../version-utils'
 
 /**
@@ -28,7 +28,7 @@ export default class CliBumpStrategy extends BaseVersionStrategy {
     return {
       command: `${CliBumpStrategy.strategyShortName} [bump]`,
       describe: 'Performs a version bump based on the --bump flag',
-      builder: (yargs) => {
+      builder: yargs => {
         yargs.positional('bump', {
           describe: `Version type to bump.
 
@@ -55,7 +55,8 @@ export default class CliBumpStrategy extends BaseVersionStrategy {
     let versionData = this.getCurrentVersion()
 
     // check if the pre/build is using any custom tag
-    if (typeof this.bump === 'string' &&
+    if (
+      typeof this.bump === 'string' &&
       (this.bump.includes('pre') || this.bump.includes('build')) &&
       this.bump.includes(':')
     ) {
@@ -80,10 +81,9 @@ export default class CliBumpStrategy extends BaseVersionStrategy {
           break
       }
 
+      // go through the new tags to use and compare to the existing ones
+      // if they do not match, then we consider it to be a fresh bump
       if (!tags.every((tag, idx) => tag === compare[idx])) {
-        // set the initial pre/build version to 1
-        tags.push(0)
-
         switch (bumpLevel) {
           case BUMP_LEVEL.PRE_RELEASE:
             versionData.pre = tags

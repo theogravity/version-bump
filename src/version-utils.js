@@ -1,16 +1,14 @@
 import { BUMP_LEVEL } from './consts'
-import { parseSemVer } from 'semver-parser'
 
-import semver from 'semver'
-
-export function bumpVersionData (versionData, bumpLevel, {
-  logger
-} = { logger: console }) {
+export function bumpVersionData (
+  versionData,
+  bumpLevel,
+  { logger } = { logger: console }
+) {
   if (!versionData) {
     throw new Error('versionData object is required for bumping')
   }
 
-  let currVersion = versionData.version
   let newVersionData = {
     ...versionData
   }
@@ -18,28 +16,83 @@ export function bumpVersionData (versionData, bumpLevel, {
   switch (bumpLevel) {
     case BUMP_LEVEL.MAJOR:
       logger.info('Bumping major version...')
-      return parseSemVer(semver.inc(currVersion, 'major'))
+      // If a pre-release exists, then this is going to be the
+      // first non-pre release for that version
+      // so no update to the major version happens
+      if (newVersionData.pre) {
+        newVersionData.pre = undefined
+        newVersionData.build = undefined
+        break
+      }
+
+      newVersionData.major += 1
+      newVersionData.minor = 0
+      newVersionData.patch = 0
+
+      newVersionData.pre = undefined
+      newVersionData.build = undefined
+      break
     case BUMP_LEVEL.MINOR:
       logger.info('Bumping minor version...')
-      return parseSemVer(semver.inc(currVersion, 'minor'))
+      if (newVersionData.pre) {
+        newVersionData.pre = undefined
+        newVersionData.build = undefined
+        break
+      }
+
+      newVersionData.minor += 1
+      newVersionData.patch = 0
+
+      newVersionData.pre = undefined
+      newVersionData.build = undefined
+      break
     case BUMP_LEVEL.PATCH:
       logger.info('Bumping patch version...')
-      return parseSemVer(semver.inc(currVersion, 'patch'))
+      if (newVersionData.pre) {
+        newVersionData.pre = undefined
+        newVersionData.build = undefined
+        break
+      }
+
+      newVersionData.patch += 1
+      newVersionData.pre = undefined
+      newVersionData.build = undefined
+      break
     case BUMP_LEVEL.PRE_MAJOR:
       logger.info('Bumping pre-major version...')
-      return parseSemVer(semver.inc(currVersion, 'premajor'))
+      newVersionData.major += 1
+      newVersionData.minor = 0
+      newVersionData.patch = 0
+
+      newVersionData.build = undefined
+      newVersionData.pre = [0]
+      break
     case BUMP_LEVEL.PRE_MINOR:
       logger.info('Bumping pre-minor version...')
-      return parseSemVer(semver.inc(currVersion, 'preminor'))
+      newVersionData.minor += 1
+      newVersionData.patch = 0
+
+      newVersionData.build = undefined
+      newVersionData.pre = [0]
+      break
     case BUMP_LEVEL.PRE_PATCH:
       logger.info('Bumping pre-patch version...')
-      return parseSemVer(semver.inc(currVersion, 'prepatch'))
+      newVersionData.patch += 1
+
+      newVersionData.build = undefined
+      newVersionData.pre = [0]
+      break
     case BUMP_LEVEL.PRE_RELEASE:
       logger.info('Bumping pre-release version...')
-      return parseSemVer(semver.inc(currVersion, 'prerelease'))
+      if (!versionData.pre) {
+        newVersionData.patch += 1
+      }
+
+      newVersionData.build = undefined
+      newVersionData.pre = bumpArray(versionData.pre)
+      break
     case BUMP_LEVEL.BUILD_RELEASE:
       logger.info('Bumping build-release version...')
-
       newVersionData.build = bumpArray(versionData.build)
       break
     case BUMP_LEVEL.LOWEST:
@@ -52,10 +105,13 @@ export function bumpVersionData (versionData, bumpLevel, {
       }
 
       if (versionData.pre) {
-        return parseSemVer(semver.inc(versionData.version, 'prerelease'))
+        newVersionData.pre = bumpArray(versionData.pre)
+        break
       }
 
-      return parseSemVer(semver.inc(versionData.version, 'patch'))
+      newVersionData.patch += 1
+      newVersionData.pre = undefined
+      newVersionData.build = undefined
   }
 
   newVersionData.version = versionObjToString(newVersionData)
@@ -92,7 +148,7 @@ export function bumpArray (data) {
   }
 
   // find the first integer value in the array, starting backwards and increment it
-  for (let i = (data.length - 1); i > -1; i--) {
+  for (let i = data.length - 1; i > -1; i--) {
     if (Number.isInteger(data[i])) {
       data[i] += 1
       return data

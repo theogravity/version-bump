@@ -20,18 +20,16 @@ export default class VersionBump {
    */
   async initStrategy (Strategy) {
     if (!Strategy) {
-      throw new Error('VersionBump#initStrategy() requires the Strategy parameter')
+      throw new Error(
+        'VersionBump#initStrategy() requires the Strategy parameter'
+      )
     }
 
     this.strategyInstance = new Strategy(this.options, {
       logger: this.logger
     })
 
-    const {
-      projectRoot,
-      versionFile
-    } = this.options
-
+    const { projectRoot, versionFile } = this.options
 
     if (!versionFile) {
       throw new Error('Required option not defined: versionFile')
@@ -55,11 +53,7 @@ export default class VersionBump {
    * @returns {Promise<void>}
    */
   async bumpVersion () {
-    const {
-      projectRoot,
-      versionFile,
-      onBeforeRelease
-    } = this.options
+    const { projectRoot, versionFile, onBeforeRelease } = this.options
 
     if (!this.strategyInstance) {
       throw new Error('VersionBump#init() was not called before bumpVersion()')
@@ -82,8 +76,17 @@ export default class VersionBump {
 
     this.logger.info('New version:', packageData.version)
 
+    if (this.options.simulate) {
+      this.logger.info('Simulate option used. Version file not updated.')
+      return
+    }
+
     this.logger.info('Version updated in:', join(projectRoot, versionFile))
 
-    await writeVersionFile(projectRoot, versionFile, JSON.stringify(packageData, 0, 2) + '\n')
+    await writeVersionFile(
+      projectRoot,
+      versionFile,
+      JSON.stringify(packageData, 0, 2) + '\n'
+    )
   }
 }

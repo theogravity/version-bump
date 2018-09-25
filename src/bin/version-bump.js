@@ -35,6 +35,11 @@ async function execCli () {
           'The relative path to the JSON version file from projectRoot ' +
           'that contains the "version" property.',
         default: 'package.json'
+      },
+      simulate: {
+        describe: 'Simulates the version bump. Does not write data.',
+        type: 'boolean',
+        default: false
       }
     })
     .example('$0 cli major')

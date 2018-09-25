@@ -1,6 +1,6 @@
 {
   "name": "@theo.gravity/version-bump",
-  "version": "1.0.22",
+  "version": "1.1.0",
   "description": "Version bump package.json (or a version file) via various plugins (eg cli, git, etc).",
   "main": "lib/index.js",
   "bin": {
@@ -24,7 +24,6 @@
   "dependencies": {
     "debug": "^3.1.0",
     "find-plugins": "^1.1.7",
-    "semver": "^5.5.1",
     "semver-parser": "^2.0.1",
     "yargs": "^12.0.2"
   },

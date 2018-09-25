@@ -1,3 +1,9 @@
+# UNRELEASED
+
+- Updated bump version rules. Added table in readme to clarify how the version is affected depending on level used.
+- Added `simulate` option to see what the new version would be without writing to file.
+- Added unit tests that test the version table in the readme
+
 # 1.0.22 - Thu Sep 20 2018 08:01:39
 
 Just fixes for CI
