@@ -4,8 +4,6 @@ if [[ "${CIRCLE_BRANCH}" == "master" ]]
 then
   echo "Raising package version and updating CHANGELOG.md"
 
-  sudo npm i @theo.gravity/version-bump@1.0.21 -g
-
   git config --global push.default simple
   git config --global user.email "theo@suteki.nu"
   git config --global user.name "CircleCI Publisher"
@@ -17,12 +15,11 @@ then
   git pull origin master
 
   # Re-apply the stash
-  git stash apply
+  # If there is nothing to apply on the stash, a non-zero exit code happens
+  # we pipe an empty echo to prevent this
+  git stash apply || echo ""
 
-  # Fails the build if any of the steps below fails
-  set -e
-
-  # Version bump package.json (package.json is committed by npm-version-git), stamp CHANGELOG.md
+  # Version bump package.json, stamp CHANGELOG.md
   yarn prepare-publish
 
   # Changelog is now stamped with the version / time info - add to git
@@ -33,7 +30,7 @@ then
   # The CI does not end up recursively building it
 
   # This gets the last commit log message
-  PKG_VERSION=`version-bump show-version`
+  PKG_VERSION=`npm run --silent version-bump show-version`
 
   # Appending [skip ci] to the log message
   # Note: --amend does not trigger the pre-commit hooks
