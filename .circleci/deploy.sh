@@ -2,6 +2,8 @@
 
 if [[ "${CIRCLE_BRANCH}" == "master" ]]
 then
+  set -e
+
   echo "Raising package version and updating CHANGELOG.md"
 
   git config --global push.default simple
