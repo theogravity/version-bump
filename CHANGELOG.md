@@ -1,4 +1,4 @@
-# UNRELEASED
+# 1.1.1 - Tue Sep 25 2018 22:25:01
 
 - Updated bump version rules. Added table in readme to clarify how the version is affected depending on level used.
 - Added `simulate` option to see what the new version would be without writing to file.
