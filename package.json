@@ -1,6 +1,6 @@
 {
   "name": "@theo.gravity/version-bump",
-  "version": "1.1.1",
+  "version": "1.2.4",
   "description": "Version bump package.json (or a version file) via various plugins (eg cli, git, etc).",
   "main": "lib/index.js",
   "bin": {
@@ -22,32 +22,32 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
-    "debug": "^3.1.0",
+    "debug": "^4.1.1",
     "find-plugins": "^1.1.7",
     "semver-parser": "^2.0.1",
-    "yargs": "^12.0.2"
+    "yargs": "^13.1.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.0.0",
-    "@babel/plugin-proposal-class-properties": "^7.0.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
-    "@babel/plugin-transform-runtime": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
-    "@babel/register": "^7.0.0",
-    "@theo.gravity/changelog-version": "^2.1.1",
-    "@theo.gravity/version-bump": "^1.0.5",
-    "babel-core": "^7.0.0-bridge.0",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/register": "^7.5.5",
+    "@theo.gravity/changelog-version": "^2.1.10",
+    "@theo.gravity/version-bump": "^1.1.1",
+    "babel-jest": "^24.8.0",
     "execa": "^1.0.0",
-    "jest": "^23.6.0",
-    "jest-cli": "^23.6.0",
+    "jest": "^24.8.0",
+    "jest-cli": "^24.8.0",
     "jest-junit-reporter": "^1.1.0",
-    "lint-staged": "^7.2.0",
-    "mock-fs": "^4.5.0",
+    "lint-staged": "^9.2.1",
+    "mock-fs": "^4.10.1",
     "pre-commit": "^1.2.2",
-    "prettier-standard": "^8.0.1",
-    "standard": "^11.0.1",
-    "toc-md": "^0.2.0",
+    "prettier-standard": "^9.1.1",
+    "standard": "^13.1.0",
+    "toc-md-alt": "^0.3.1",
     "version-bump-plugin-dummy": "^1.0.1"
   },
   "repository": {
@@ -88,9 +88,6 @@
     "url": "https://github.com/theogravity/version-bump/issues"
   },
   "homepage": "https://github.com/theogravity/version-bump#readme",
-  "resolutions": {
-    "babel-core": "7.0.0-bridge.0"
-  },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.js"
@@ -99,7 +96,7 @@
     "testEnvironment": "node",
     "testPathIgnorePatterns": [
       "/node_modules/",
-      "/lib"
+      "/lib/"
     ]
   },
   "pre-commit": [
