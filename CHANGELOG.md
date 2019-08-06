@@ -1,4 +1,4 @@
-# UNRELEASED
+# 1.2.5 - Tue Aug 06 2019 03:00:39
 
 Update dependencies.
 
