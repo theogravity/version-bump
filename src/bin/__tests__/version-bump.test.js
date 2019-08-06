@@ -16,7 +16,7 @@ beforeEach(async () => {
     '--require',
     '@babel/register',
     './src/bin/version-bump.js',
-    '---versionFile',
+    '--versionFile',
     TEST_VERSION_FILE,
     '--configFile',
     'abcd'

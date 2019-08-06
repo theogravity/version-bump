@@ -61,9 +61,12 @@ export async function writeVersionFile (projectRoot, versionFile, data) {
   }
 }
 
-export async function readVersionFile (projectRoot, versionFile, {
-  logger
-} = { logger: console }) {
+export async function readVersionFile (
+  projectRoot,
+  versionFile,
+  { logger } = { logger: console }
+) {
+  debugger
   const versionFilePath = join(projectRoot, versionFile)
 
   logger.info(`Reading version file: ${versionFilePath}`)
