@@ -1,4 +1,4 @@
-# UNRELEASED
+# 2.0.4 - Mon Mar 30 2020 08:03:15
 
 Update typescript defs.
 
