@@ -1,6 +1,12 @@
 import BaseVersionStrategy from '../BaseVersionStrategy'
 import { BUMP_LEVEL } from '../consts'
 import { bumpVersionData } from '../version-utils'
+import { IVersionBump } from '../interfaces'
+
+export interface CliBumpStrategyConfig
+  extends IVersionBump.BaseVersionStrategyOptions {
+  bump: string
+}
 
 /**
  * Performs a version bump based on the --bump flag
@@ -16,7 +22,11 @@ import { bumpVersionData } from '../version-utils'
  * --bump build-release
  * --bump build-release:<colon-separated-tags> eg (build-release:qa)
  */
-export default class CliBumpStrategy extends BaseVersionStrategy {
+export default class CliBumpStrategy extends BaseVersionStrategy<
+  CliBumpStrategyConfig
+> {
+  bump: string
+
   static strategyShortName = 'cli'
 
   async init ({ currentVersion }) {
@@ -61,7 +71,7 @@ export default class CliBumpStrategy extends BaseVersionStrategy {
       this.bump.includes(':')
     ) {
       // extract the tag
-      let tags = this.bump.split(':')
+      const tags = this.bump.split(':')
 
       // remove the 0th entry since that's the pre/build label
       tags.shift()

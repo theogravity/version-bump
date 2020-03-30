@@ -1,10 +1,17 @@
 import findPlugins from 'find-plugins'
-import { join } from 'path'
 import CliBumpStrategy from './version-strategy/CliBumpStrategy'
+import { IVersionBump } from './interfaces'
+import StrategyPlugin = IVersionBump.StrategyPlugin
 
 const PKG_REGEX = /(.*)?version-bump-plugin(.*)/
 
 export default class StrategyLoader {
+  private strategies: {
+    [strategyName: string]: {
+      Strategy: StrategyPlugin
+    }
+  }
+
   constructor () {
     this.strategies = {}
     this._loadExternalPlugins()
@@ -33,9 +40,8 @@ export default class StrategyLoader {
 
   /**
    * Registers a strategy.
-   * @param {BaseVersionStrategy} fn A class that extends BaseVersionStrategy
    */
-  registerStrategy = Strategy => {
+  registerStrategy = (Strategy: StrategyPlugin) => {
     if (Strategy && !Strategy.strategyShortName) {
       throw new Error(
         'strategyShortName not defined for strategy: ' + Strategy.name

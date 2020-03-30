@@ -1,17 +1,31 @@
 import { readVersionFile, writeVersionFile } from './utils'
 import { join } from 'path'
 import { versionObjToString } from './version-utils'
+import BaseVersionStrategy from './BaseVersionStrategy'
+import { IVersionBump } from './interfaces'
+import VersionFile = IVersionBump.VersionFile
+import BaseVersionStrategyOptions = IVersionBump.BaseVersionStrategyOptions
+import ILogger = IVersionBump.ILogger
+import VersionStrategyInternalOptions = IVersionBump.VersionStrategyInternalOptions
 
-export default class VersionBump {
-  /**
-   * Facade that interfaces to the changelog classes. Main entry point for the command line.
-   * See the respective classes for parameter info.
-   **/
-  constructor (options, { logger } = { logger: console }) {
+/**
+ * Facade that interfaces to the changelog classes. Main entry point for the command line.
+ * See the respective classes for parameter info.
+ **/
+export default class VersionBumper {
+  packageData: VersionFile
+  options: BaseVersionStrategyOptions
+  strategyInstance: BaseVersionStrategy<BaseVersionStrategyOptions>
+  logger: ILogger
+
+  constructor (
+    options: BaseVersionStrategyOptions,
+    internalOpts?: VersionStrategyInternalOptions
+  ) {
     this.options = options
     this.strategyInstance = null
     this.packageData = null
-    this.logger = logger
+    this.logger = internalOpts?.logger ?? console
   }
 
   /**
@@ -21,7 +35,7 @@ export default class VersionBump {
   async initStrategy (Strategy) {
     if (!Strategy) {
       throw new Error(
-        'VersionBump#initStrategy() requires the Strategy parameter'
+        'VersionBumper#initStrategy() requires the Strategy parameter'
       )
     }
 
@@ -56,7 +70,9 @@ export default class VersionBump {
     const { projectRoot, versionFile, onBeforeRelease } = this.options
 
     if (!this.strategyInstance) {
-      throw new Error('VersionBump#init() was not called before bumpVersion()')
+      throw new Error(
+        'VersionBumper#init() was not called before bumpVersion()'
+      )
     }
 
     this.logger.info('Executing strategy...')
@@ -86,6 +102,7 @@ export default class VersionBump {
     await writeVersionFile(
       projectRoot,
       versionFile,
+      // @ts-ignore
       JSON.stringify(packageData, 0, 2) + '\n'
     )
   }

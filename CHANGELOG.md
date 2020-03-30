@@ -1,3 +1,9 @@
+# UNRELEASED
+
+Updated ci, converted to Typescript.
+
+Removed support for node versions < 10.
+
 # 1.2.6 - Thu Aug 29 2019 20:12:52
 
 Update dependencies.
@@ -31,3 +37,4 @@ Fix bug in built package
 # 1.0.10 - Wed Sep 19 2018 16:55:10
 
 First version!
+

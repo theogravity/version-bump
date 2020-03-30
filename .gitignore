@@ -60,11 +60,9 @@ typings/
 # next.js build output
 .next
 
-.idea
-
-#built libs
+.idea/
+test-report.xml
 lib/
 
-test-report.xml
-version.test.json
-version-config-test.js
+build/
+coverage/

@@ -35,7 +35,7 @@ describe('ConfigParser class', () => {
       projectRoot: process.cwd(),
       strategy: 'cli',
       versionFile: 'test.json',
-      _usingConfig: true
+      _usingConfigFile: true
     })
   })
 })

@@ -96,7 +96,7 @@ Options:
   --version      Show version number                                                                           [boolean]
   --projectRoot  The project root where the version file is found. Default is process.cwd()
                                                                    [default: "/Users/t.gravity/sixfive-cs/version-bump"]
-  --configFile   Name of the optional config file, relative to projectRoot.                [default: ".version-bump.js"]
+  --configFile   Name of the optional config file, relative to projectRoot.                [default: ".version-bump.ts"]
   --versionFile  The relative path to the JSON version file from projectRoot that contains the "version" property.
                                                                                                [default: "package.json"]
   --help         Show help                                                                                     [boolean]
@@ -130,7 +130,7 @@ Options:
   --version      Show version number                                                                           [boolean]
   --projectRoot  The project root where the version file is found. Default is process.cwd()
                                                                    [default: "/Users/t.gravity/sixfive-cs/version-bump"]
-  --configFile   Name of the optional config file, relative to projectRoot.                [default: ".version-bump.js"]
+  --configFile   Name of the optional config file, relative to projectRoot.                [default: ".version-bump.ts"]
   --versionFile  The relative path to the JSON version file from projectRoot that contains the "version" property.
                                                                                                [default: "package.json"]
   --help         Show help                                                                                     [boolean]
@@ -140,7 +140,7 @@ Options:
 
 To spare yourself from having to specify command line options each time, you can use a custom config file.
 
-Place `.version-bump.js` in the root of your project.
+Place `.version-bump.ts` in the root of your project.
 
 (The file name can be configured with the `--configFile` option, which is relative to `--projectRoot`.)
 

@@ -14,8 +14,8 @@ let defaultArgs = null
 beforeEach(async () => {
   defaultArgs = [
     '--require',
-    '@babel/register',
-    './src/bin/version-bump.js',
+    'ts-node/register',
+    './src/bin/version-bump.ts',
     '--versionFile',
     TEST_VERSION_FILE,
     '--configFile',
@@ -32,9 +32,9 @@ describe('version-bump', () => {
     try {
       // have to use shellSync for this one
       // because the default throws an error
-      execa.shellSync('node', defaultArgs)
+      await execa('node', defaultArgs)
     } catch (e) {
-      expect(e).toContain('version-bump <strategy>')
+      expect(e.message).toContain('version-bump.ts <strategy>')
     }
   })
 
@@ -42,9 +42,9 @@ describe('version-bump', () => {
     defaultArgs.push('invalid-command')
 
     try {
-      execa.shellSync('node', defaultArgs)
+      await execa('node', defaultArgs)
     } catch (e) {
-      expect(e).toContain('version-bump <strategy>')
+      expect(e.message).toContain('Strategy does not exist: invalid-command')
     }
   })
 
@@ -53,7 +53,7 @@ describe('version-bump', () => {
     defaultArgs.push('--help')
     const { stdout } = await execa('node', defaultArgs)
 
-    expect(stdout).toContain('version-bump.js cli [bump]')
+    expect(stdout).toContain('version-bump.ts cli [bump]')
     expect(stdout).toContain('Version type to bump.')
   })
 
@@ -97,7 +97,7 @@ describe('version-bump', () => {
       defaultArgs.push('--help')
       const { stdout } = await execa('node', defaultArgs)
 
-      expect(stdout).toContain('version-bump.js dummy')
+      expect(stdout).toContain('version-bump.ts dummy')
       expect(stdout).toContain('An option that does nothing')
     })
 

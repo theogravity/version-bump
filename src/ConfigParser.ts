@@ -4,6 +4,11 @@ import {
   existsSync
 } from 'fs'
 import { getValue, parseOptions } from './utils'
+import { IVersionBump } from './interfaces'
+
+import ConfigParserOptions = IVersionBump.ConfigParserOptions
+import ILogger = IVersionBump.ILogger
+import CombinedConfigOptions = IVersionBump.CombinedConfigOptions
 
 const debug = require('debug')('config-parser')
 
@@ -18,16 +23,18 @@ const CONFIG_OPTIONS_TO_SKIP = {
  * Parses a config file into options that are consumable by other classes.
  */
 export default class ConfigParser {
-  /**
-   * @param {string} [options.configFile] Name of the version bump config file, relative to projectRoot.
-   * Default is '.version-bump.js'
-   * @param {string} [options.projectRoot] The project root where the package.json file
-   * is found. Default is process.cwd()
-   */
-  constructor (options = {}, { logger } = { logger: console }) {
+  options: ConfigParserOptions
+  projectRoot: string
+  configFile: string
+  logger: ILogger
+
+  constructor (
+    options: ConfigParserOptions = { strategy: '' },
+    { logger } = { logger: console }
+  ) {
     this.options = options
     this.projectRoot = options.projectRoot || process.cwd()
-    this.configFile = options.configFile || '.version-bump.js'
+    this.configFile = options.configFile || '.version-bump.ts'
     this.logger = logger
   }
 
@@ -36,10 +43,13 @@ export default class ConfigParser {
    * into other classes.
    * @returns {Promise<object>}
    */
-  async parseConfig (useConfigFile = true) {
+  async parseConfig (useConfigFile = true): Promise<CombinedConfigOptions> {
     const configFile = join(this.projectRoot, this.configFile)
-    let options = {}
-    let defaultOptions = this.options
+    let options: ConfigParserOptions = {
+      strategy: ''
+    }
+
+    let defaultOptions: CombinedConfigOptions = this.options
 
     if (useConfigFile && existsSync(configFile)) {
       this.logger.info(`Using config file: ${configFile}`)
@@ -59,7 +69,7 @@ export default class ConfigParser {
       )
 
       defaultOptions = {
-        _usingConfig: true,
+        _usingConfigFile: true,
         ...calculatedOptions,
         ...this.options,
         // Speical case: if the config file has projectRoot,

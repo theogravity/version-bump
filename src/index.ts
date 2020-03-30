@@ -1,15 +1,17 @@
 import BaseVersionStrategy from './BaseVersionStrategy'
 import ConfigParser from './ConfigParser'
-import VersionBump from './VersionBump'
+import VersionBumper from './VersionBumper'
 import { bumpVersionData } from './version-utils'
 import { BUMP_LEVEL } from './consts'
 import { parseOptions } from './utils'
+import { IVersionBump } from './interfaces'
 
 export {
   ConfigParser,
   BaseVersionStrategy,
-  VersionBump,
+  VersionBumper,
   bumpVersionData,
   BUMP_LEVEL,
-  parseOptions
+  parseOptions,
+  IVersionBump
 }

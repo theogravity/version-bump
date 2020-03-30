@@ -1,10 +1,15 @@
 import { BUMP_LEVEL } from './consts'
+import { IVersionBump } from './interfaces'
+import ParsedSemVerResult = IVersionBump.ParsedSemVerResult
+import VersionStrategyInternalOptions = IVersionBump.VersionStrategyInternalOptions
 
 export function bumpVersionData (
   versionData,
   bumpLevel,
-  { logger } = { logger: console }
-) {
+  internalOpts?: VersionStrategyInternalOptions
+): ParsedSemVerResult {
+  let logger = internalOpts?.logger ?? console
+
   if (!versionData) {
     throw new Error('versionData object is required for bumping')
   }
@@ -120,7 +125,7 @@ export function bumpVersionData (
 
 // https://github.com/semver/semver/blob/master/semver.md#backusnaur-form-grammar-for-valid-semver-versions
 // See grammar for semver rules
-export function versionObjToString (versionData) {
+export function versionObjToString (versionData): string {
   let version = `${versionData.major}.${versionData.minor}.${versionData.patch}`
 
   if (versionData.pre && versionData.pre.length > 0) {
@@ -134,7 +139,7 @@ export function versionObjToString (versionData) {
   return version
 }
 
-export function bumpArray (data) {
+export function bumpArray (data?: Array<any>): Array<any> {
   if (!Array.isArray(data)) {
     return [0]
   }

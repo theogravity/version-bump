@@ -1,6 +1,8 @@
 import { readFile, writeFile } from 'fs'
 import util from 'util'
 import { join } from 'path'
+import { IVersionBump } from './interfaces'
+import VersionStrategyInternalOptions = IVersionBump.VersionStrategyInternalOptions
 
 const writeFileAsync = util.promisify(writeFile)
 const readFileAsync = util.promisify(readFile)
@@ -62,11 +64,12 @@ export async function writeVersionFile (projectRoot, versionFile, data) {
 }
 
 export async function readVersionFile (
-  projectRoot,
-  versionFile,
-  { logger } = { logger: console }
+  projectRoot: string,
+  versionFile: string,
+  internalOpts: VersionStrategyInternalOptions
 ) {
-  debugger
+  let logger = internalOpts?.logger ?? console
+
   const versionFilePath = join(projectRoot, versionFile)
 
   logger.info(`Reading version file: ${versionFilePath}`)

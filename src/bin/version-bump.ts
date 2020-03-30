@@ -3,14 +3,17 @@
 import yargs from 'yargs'
 
 import StrategyLoader from '../StrategyLoader'
-import VersionBump from '../VersionBump'
+import VersionBumper from '../VersionBumper'
 import ConfigParser from '../ConfigParser'
 import { readVersionFile } from '../utils'
+import { IVersionBump } from '../interfaces'
 
 const loader = new StrategyLoader()
 const packageData = require('../../package.json')
 
-let options = {}
+let options: IVersionBump.CombinedConfigOptions = {
+  strategy: ''
+}
 
 async function execCli () {
   // eslint-disable-next-line no-unused-expressions
@@ -42,8 +45,8 @@ async function execCli () {
         default: false
       }
     })
-    .example('$0 cli major')
-    .example('$0 cli --bump minor')
+    .example('$0 cli major', 'Bump major version')
+    .example('$0 cli --bump minor', 'Bump minor version')
 
   cli.command(
     'show-version',
@@ -73,7 +76,10 @@ async function execCli () {
   // check if a config file exists and use that if it does
   const useConfigFile = cli.argv._.length === 0
 
-  const parser = new ConfigParser(cli.argv, { logger: console })
+  const parser = new ConfigParser(
+    (cli.argv as unknown) as IVersionBump.ConfigParserOptions,
+    { logger: console }
+  )
   options = await parser.parseConfig(useConfigFile)
 
   // set the new options
@@ -83,7 +89,7 @@ async function execCli () {
   // so capture what the strategy is here
   const strategy = options.strategy || options._[0]
 
-  if (!strategy && !options._usingConfig) {
+  if (!strategy && !options._usingConfigFile) {
     cli.showHelp()
 
     throw new Error(
@@ -130,7 +136,7 @@ function execStrategy (stratName) {
     console.info('Using version bump strategy:', stratName)
 
     const Strategy = loader.getStrategyConstructor(stratName)
-    const vb = new VersionBump(params)
+    const vb = new VersionBumper(params)
 
     await vb.initStrategy(Strategy)
     await vb.bumpVersion()

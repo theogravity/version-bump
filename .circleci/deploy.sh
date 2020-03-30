@@ -22,7 +22,7 @@ then
   git stash apply || echo ""
 
   # Version bump package.json, stamp CHANGELOG.md
-  yarn prepare-publish
+  npm run prepare-publish
 
   # Changelog is now stamped with the version / time info - add to git
   git add CHANGELOG.md
