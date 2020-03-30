@@ -34,7 +34,7 @@ export default class ConfigParser {
   ) {
     this.options = options
     this.projectRoot = options.projectRoot || process.cwd()
-    this.configFile = options.configFile || '.version-bump.ts'
+    this.configFile = options.configFile || '.version-bump.js'
     this.logger = logger
   }
 
