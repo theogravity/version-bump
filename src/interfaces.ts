@@ -47,8 +47,15 @@ export namespace IVersionBump {
      */
     describe: string
 
-    builder: (yargs: Argv<Args>) => void
+    /**
+     * This function takes in the yargs instance allowing you to call additional functions
+     * if necessary for your command
+     */
+    builder?: (yargs: Argv<Args>) => void
 
+    /**
+     * Do not define this method - used internally
+     */
     handler?: any
   }
 

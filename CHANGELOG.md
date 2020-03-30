@@ -1,3 +1,7 @@
+# UNRELEASED
+
+Update typescript defs.
+
 # 2.0.3 - Mon Mar 30 2020 07:36:03
 
 Slim down npm package by excluding non-essential files.

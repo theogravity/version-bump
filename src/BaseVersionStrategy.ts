@@ -8,7 +8,7 @@ import ILogger = IVersionBump.ILogger
 import ParsedSemVerResult = IVersionBump.ParsedSemVerResult
 
 export default abstract class BaseVersionStrategy<
-  T extends BaseVersionStrategyOptions
+  T extends BaseVersionStrategyOptions = BaseVersionStrategyOptions
 > {
   options: T
 
