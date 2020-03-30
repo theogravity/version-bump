@@ -60,7 +60,7 @@ export default class CliBumpStrategy extends BaseVersionStrategy<
     }
   }
 
-  async getNextVersion () {
+  async getNextVersion (): Promise<IVersionBump.ParsedSemVerResult> {
     const bumpLevel = this._determineBumpLevel(this.bump)
     let versionData = this.getCurrentVersion()
 
@@ -112,7 +112,10 @@ export default class CliBumpStrategy extends BaseVersionStrategy<
     return versionData
   }
 
-  _determineBumpLevel (bumpType) {
+  /**
+   * Returns the bump level to use based on the bump type input
+   */
+  _determineBumpLevel (bumpType): BUMP_LEVEL {
     if (!bumpType || typeof bumpType !== 'string') {
       return BUMP_LEVEL.LOWEST
     }

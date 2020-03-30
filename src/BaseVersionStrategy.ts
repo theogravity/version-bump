@@ -18,9 +18,8 @@ export default abstract class BaseVersionStrategy<
 
   /**
    * The strategy name used for calling the strategy in the cli and configuration file.
-   * @type {string}
    */
-  static strategyShortName = 'base'
+  static strategyShortName: string = 'base'
 
   constructor (options: T, internalOpts?: VersionStrategyInternalOptions) {
     this.currentVersionObj = null
@@ -31,7 +30,7 @@ export default abstract class BaseVersionStrategy<
   /**
    * Returns an object used for logging
    */
-  getLogger () {
+  getLogger (): ILogger {
     return this.logger
   }
 
@@ -78,7 +77,7 @@ export default abstract class BaseVersionStrategy<
   /**
    * Returns a structure that contains metadata about the parsed version.
    */
-  getCurrentVersion () {
+  getCurrentVersion (): ParsedSemVerResult {
     return this.currentVersionObj
   }
 
