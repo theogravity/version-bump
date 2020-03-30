@@ -3,7 +3,7 @@ src/
 test-report.xml
 .circleci/
 .idea/
-.wallaby.js
+wallaby.js
 __tests__/
 __mocks__/
 .gitattributes
@@ -19,5 +19,5 @@ coverage/
 api-doc.md
 docs/
 typedoc.js
-version-test.json
-version-config-test.json
+version.test.json
+version-config-test.js

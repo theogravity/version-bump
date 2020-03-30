@@ -1,3 +1,7 @@
+# UNRELEASED
+
+Slim down npm package by excluding non-essential files.
+
 # 2.0.2 - Mon Mar 30 2020 07:29:59
 
 Updated ci, converted to Typescript.
