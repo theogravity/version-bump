@@ -53,6 +53,9 @@ removed and the rest of the version is unchanged
 
 ## Install
 
+- `node.js` 10 and greater is supported
+- For older versions of node, use the 1.x versions.
+
 `npm install -g @theo.gravity/version-bump`
 
 ## Quick start usage
