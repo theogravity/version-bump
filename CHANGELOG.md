@@ -7,6 +7,7 @@ Make sure all packages are at their latest versions, fix as many security audit 
 ## CI updates only
 
 No code changes here.
+
 # 2.0.6 - Mon Mar 30 2020 09:18:00
 
 Fix bug where `.version-bump.js` was not being read if no command args was specified.
