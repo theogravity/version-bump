@@ -1,4 +1,8 @@
-# 2.0.7 - Sat Apr 04 2020 19:57:25
+# 2.0.8 - Sat Apr 04 2020 20:16:01
+
+## Update package deps (#6)
+
+Make sure all packages are at their latest versions, fix as many security audit issues as possible.# 2.0.7 - Sat Apr 04 2020 19:57:25
 
 ## CI updates only
 
