@@ -1,3 +1,8 @@
+# 2.0.7 - Sat Apr 04 2020 19:57:25
+
+## CI updates only
+
+No code changes here.
 # 2.0.6 - Mon Mar 30 2020 09:18:00
 
 Fix bug where `.version-bump.js` was not being read if no command args was specified.
