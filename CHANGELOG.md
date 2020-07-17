@@ -1,3 +1,15 @@
+# 2.0.10 - Fri Jul 17 2020 12:11:24
+
+- Bump lodash from 4.17.15 to 4.17.19 (#7)
+
+Bumps [lodash](https://github.com/lodash/lodash) from 4.17.15 to 4.17.19.
+- [Release notes](https://github.com/lodash/lodash/releases)
+- [Commits](https://github.com/lodash/lodash/compare/4.17.15...4.17.19)
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt;
+
+Co-authored-by: dependabot[bot] &lt;49699333+dependabot[bot]@users.noreply.github.com&gt;
+
 # 2.0.9 - Sat Apr 04 2020 21:04:33
 
 ## Update CI
