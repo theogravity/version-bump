@@ -68,7 +68,7 @@
     "debug": "^4.1.1",
     "find-plugins": "^1.1.7",
     "semver-parser": "^3.0.4",
-    "yargs": "^15.3.1"
+    "yargs": "^16.0.0"
   },
   "devDependencies": {
     "@theo.gravity/changelog-version": "2.1.10",
