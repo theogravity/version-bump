@@ -1,3 +1,16 @@
+# 2.0.11 - Wed Nov 25 2020 06:31:07
+
+- Bump highlight.js from 9.18.1 to 9.18.5 (#9)
+
+Bumps [highlight.js](https://github.com/highlightjs/highlight.js) from 9.18.1 to 9.18.5.
+- [Release notes](https://github.com/highlightjs/highlight.js/releases)
+- [Changelog](https://github.com/highlightjs/highlight.js/blob/9.18.5/CHANGES.md)
+- [Commits](https://github.com/highlightjs/highlight.js/compare/9.18.1...9.18.5)
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt;
+
+Co-authored-by: dependabot[bot] &lt;49699333+dependabot[bot]@users.noreply.github.com&gt;
+
 # 2.0.10 - Fri Jul 17 2020 12:11:24
 
 - Bump lodash from 4.17.15 to 4.17.19 (#7)
