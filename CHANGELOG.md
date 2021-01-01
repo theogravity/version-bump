@@ -1,3 +1,7 @@
+# 2.0.12 - Fri Jan 01 2021 06:41:30
+
+- [minor] Update to latest packages
+
 # 2.0.11 - Wed Nov 25 2020 06:31:07
 
 - Bump highlight.js from 9.18.1 to 9.18.5 (#9)
