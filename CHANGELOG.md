@@ -1,3 +1,17 @@
+# 2.0.14 - Sun May 09 2021 20:18:24
+
+- Bump handlebars from 4.7.6 to 4.7.7 (#11)
+
+Bumps [handlebars](https://github.com/wycats/handlebars.js) from 4.7.6 to 4.7.7.
+- [Release notes](https://github.com/wycats/handlebars.js/releases)
+- [Changelog](https://github.com/handlebars-lang/handlebars.js/blob/master/release-notes.md)
+- [Commits](https://github.com/wycats/handlebars.js/compare/v4.7.6...v4.7.7)
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt;
+
+Co-authored-by: dependabot[bot] &lt;49699333+dependabot[bot]@users.noreply.github.com&gt;
+Co-authored-by: Theo Gravity &lt;theo@suteki.nu&gt;
+
 # 2.0.13 - Sun May 09 2021 20:12:56
 
 - Bump lodash from 4.17.20 to 4.17.21 (#12)
